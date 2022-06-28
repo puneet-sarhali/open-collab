@@ -1,0 +1,14 @@
+<p-dialog [(visible)]="display">
+    <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <span class="p-float-label">
+            <input id="email" type="text" formControlName="email" pInputText> 
+            <label for="email">Email</label>
+        </span>
+        <span class="p-float-label">
+            <input id="password" type="text" formControlName="password" pInputText> 
+            <label for="password">Password</label>
+        </span>
+        <button label="Sign In" pButton></button>
+    </form>
+</p-dialog>
+<button pButton (click)="showDialog()" type="button" label="Sign In" class="p-button-secondary"></button>
