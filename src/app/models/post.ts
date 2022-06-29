@@ -1,15 +1,24 @@
 import { User } from './user';
 export interface Post{
     postid: string,
+    // projectId: string,
     projectName: string,
     // title: string,
     description: string,
+    projectState: ProjectState,
     // upvotes: number,
     // downvotes: number,
     score: number,
     // comments: [string],
     // postedBy: User,
     // postedOn: Date
+}
+
+export enum ProjectState {
+    inDevelopment,
+    proposed,
+    planning,
+    maintenance
 }
 
 export interface Comment{

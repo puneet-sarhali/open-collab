@@ -6,7 +6,7 @@ nav {
 
   a {
     text-decoration: none;
-    color: white;
+    color: black;
     font-weight: 300;
     font-size: smaller;
   }
@@ -28,10 +28,6 @@ nav > a:first-child {
 
 :host {
   ::ng-deep .p-card-content {
-    padding: 0;
-  }
-
-  .p-card-body {
     padding: 0;
   }
 }

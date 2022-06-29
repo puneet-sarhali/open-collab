@@ -24,6 +24,7 @@ import {MenuModule} from 'primeng/menu';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {DividerModule} from 'primeng/divider';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { TagModule } from 'primeng/tag';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     DialogModule,
     MenuModule,
     DividerModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    TagModule
   ],
   providers: [],
   bootstrap: [AppComponent]

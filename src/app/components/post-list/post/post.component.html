@@ -1,2 +1,10 @@
-
-<h2>{{ post.projectName }}</h2>
+<div class="score">
+    <i class="pi pi-angle-up"></i>
+    <span>{{ post.score }}</span>
+    <i class="pi pi-angle-down"></i>
+</div>  
+<div class="header">
+    <h3>{{ post.projectName | uppercase}}</h3>
+    <p-tag value="{{ post.projectState }}"></p-tag>
+</div>
+<p-divider>
