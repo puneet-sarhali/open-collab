@@ -1,1 +1,7 @@
-<p>home works!</p>
+
+<app-navbar></app-navbar>
+
+
+<p>{{ status | async | json }}</p>
+<button pButton type="button" label="Sign Out" (click)="onSignout()"></button>
+

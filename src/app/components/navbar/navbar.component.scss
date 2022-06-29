@@ -1,0 +1,23 @@
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: sticky;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+.nav-item {
+  margin: 1rem;
+}
+
+nav > a:first-child {
+  margin-right: auto;
+}
+
+.align-right {
+  margin-left: auto;
+}

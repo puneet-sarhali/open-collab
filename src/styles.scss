@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  max-width: 75rem;
+  margin: 0 auto !important;
+  float: none !important;
+}
+
+body,
+body .p-component {
+  font-family: "Inter", sans-serif;
+}

@@ -5,6 +5,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+import { HomeComponent } from './components/home/home.component';
+import { PostListComponent } from './components/post-list/post-list.component';
+import { PostComponent } from './components/post-list/post/post.component';
+import { ProfileComponent } from './components/profile/profile.component';
+
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
@@ -14,15 +20,20 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import {InputTextModule} from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
-import { SignInComponent } from './components/sign-in/sign-in.component';
-import { HomeComponent } from './components/home/home.component';
+import {MenuModule} from 'primeng/menu';
+import { NavbarComponent } from './components/navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SignUpComponent,
     SignInComponent,
-    HomeComponent
+    HomeComponent,
+    PostListComponent,
+    PostComponent,
+    ProfileComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +45,8 @@ import { HomeComponent } from './components/home/home.component';
     CardModule,
     ReactiveFormsModule,
     InputTextModule,
-    DialogModule
+    DialogModule,
+    MenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
