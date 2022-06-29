@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -19,9 +18,7 @@ export class HomeComponent implements OnInit {
     
   }
 
-  onSignout(){
-    this.auth.signout();
-  }
+  
 
   toHome(){
     console.log("Navigating to Home")

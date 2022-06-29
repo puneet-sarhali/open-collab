@@ -22,6 +22,8 @@ import {InputTextModule} from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
 import {MenuModule} from 'primeng/menu';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {DividerModule} from 'primeng/divider';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     InputTextModule,
     DialogModule,
     MenuModule,
+    DividerModule,
+    OverlayPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]
