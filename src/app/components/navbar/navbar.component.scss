@@ -6,18 +6,32 @@ nav {
 
   a {
     text-decoration: none;
-    color: black;
+    color: white;
+    font-weight: 300;
+    font-size: smaller;
   }
 }
 
 .nav-item {
-  margin: 1rem;
+  margin: 0rem 0.5rem;
 }
 
 nav > a:first-child {
   margin-right: auto;
+  font-weight: bolder;
+  font-size: large;
 }
 
 .align-right {
   margin-left: auto;
+}
+
+:host {
+  ::ng-deep .p-card-content {
+    padding: 0;
+  }
+
+  .p-card-body {
+    padding: 0;
+  }
 }
