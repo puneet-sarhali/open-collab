@@ -1,1 +1,6 @@
-
+<p-overlayPanel #op>
+    <ng-template pTemplate>
+        <button pButton type="button" label="Sign Out" (click)="onSignout()"></button>
+    </ng-template>
+</p-overlayPanel>
+<button pButton class="p-button-sm" icon="pi pi-user" (click)="op.toggle($event)"></button>
