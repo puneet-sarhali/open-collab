@@ -2,7 +2,7 @@
 <header>
     <p-card>
     <nav>
-        <a href="" class="nav-item">OpenCollab</a>
+        <a routerLink="home" class="nav-item">OpenCollab</a>
         <a href="" class="nav-item">My Projects</a>
         <a href="" class="nav-item">Saved Projects</a>
         <div class="align-right">
@@ -11,7 +11,7 @@
                 <app-sign-up class="nav-item"></app-sign-up>
             </div>
             <app-profile *ngIf="(status | async) != null"  class="nav-item"></app-profile>
-        </div>  
+        </div>
     </nav>
     </p-card>
 </header>

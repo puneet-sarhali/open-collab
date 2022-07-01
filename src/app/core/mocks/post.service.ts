@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Post, ProjectState } from 'src/app/models/post';
+import { Post, ProjectState } from 'src/app/shared/models/post';
 
 @Injectable({
   providedIn: 'root'
