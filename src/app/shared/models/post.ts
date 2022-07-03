@@ -2,10 +2,9 @@ import { User } from './user';
 export interface Post{
     postid: string,
     // projectId: string,
-    projectName: string,
+    projectname: string,
     // title: string,
     description: string,
-    projectState: ProjectState,
     // upvotes: number,
     // downvotes: number,
     score: number,

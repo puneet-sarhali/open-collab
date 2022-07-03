@@ -11,21 +11,18 @@ export class PostService {
       projectName: "Open Collab",
       description: "A collaboration tool for open source developers to propose new project ideas, collaborate with developers interested in your proposal and transparently keep track of the project’s progress.",
       score: 26,
-      projectState: ProjectState.inDevelopment
     },
     {
       postid: "2",
       projectName: "Weather API",
       description: "A collaboration tool for open source developers to propose new project ideas, collaborate with developers interested in your proposal and transparently keep track of the project’s progress.",
       score: 45,
-      projectState: ProjectState.inDevelopment
     },
     {
       postid: "3",
       projectName: "Angular UI Library",
       description: "A collaboration tool for open source developers to propose new project ideas, collaborate with developers interested in your proposal and transparently keep track of the project’s progress.",
       score: 97,
-      projectState: ProjectState.planning
     }
   ]
 

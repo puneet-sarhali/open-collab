@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {PostListComponent} from "./pages/home/post-list/post-list.component";
+import {AppComponent} from "./app.component";
 
 const routes: Routes = [
-  {
-    path: 'home', loadChildren: () => import('./modules/home/home.module').then(m =>  m.HomeModule)
-  }
+  { path: '',  component: PostListComponent },
+  { path: '**',  component: AppComponent }
   ];
 
 @NgModule({

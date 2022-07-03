@@ -1,0 +1,18 @@
+<p-card>
+  <div class="wrapper">
+    <div class="score">
+        <i class="pi pi-angle-up"></i>
+        <span>{{ post.score }}</span>
+        <i class="pi pi-angle-down"></i>
+    </div>
+    <div>
+      <div class="header">
+        <h3>{{ post.projectname | uppercase}}</h3>
+        <button pButton label="follow" class="p-button-sm p-button-text"></button>
+      </div>
+      <div class="body">
+        <p>{{ post.description }}</p>
+      </div>
+    </div>
+  </div>
+</p-card>
