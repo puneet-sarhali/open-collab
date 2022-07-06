@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Post, ProjectState } from 'src/app/shared/models/post';
+import { Project, ProjectState } from 'src/app/shared/models/project';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
-  postList: Post[] = [
+  postList: Project[] = [
     {
       postid: "1",
       projectName: "Open Collab",

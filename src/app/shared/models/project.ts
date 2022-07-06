@@ -1,6 +1,6 @@
 import { User } from './user';
-export interface Post{
-    postid: string,
+export interface Project {
+    projectid: string,
     // projectId: string,
     projectname: string,
     // title: string,
@@ -8,6 +8,8 @@ export interface Post{
     // upvotes: number,
     // downvotes: number,
     score: number,
+    createdat: Date,
+    userid: string | undefined
     // comments: [string],
     // postedBy: User,
     // postedOn: Date

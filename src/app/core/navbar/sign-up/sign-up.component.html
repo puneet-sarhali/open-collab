@@ -1,15 +1,19 @@
-<p-dialog [(visible)]="display">
+<p-dialog [(visible)]="display" [modal]="true">
         <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <span class="p-float-label">
-                <input id="email" type="text" formControlName="email" pInputText> 
+              <input id="name" type="text" formControlName="name" pInputText>
+              <label for="name">Name</label>
+            </span>
+            <span class="p-float-label">
+                <input id="email" type="text" formControlName="email" pInputText>
                 <label for="email">Email</label>
             </span>
             <span class="p-float-label">
-                <input id="password" type="text" formControlName="password" pInputText> 
+                <input id="password" type="password" formControlName="password" pInputText>
                 <label for="password">Password</label>
             </span>
             <span class="p-float-label">
-                <input id="confirmPassword" type="text" formControlName="confirmPassword" pInputText> 
+                <input  id="confirmPassword" type="password" formControlName="confirmPassword" pInputText>
                 <label for="confirmPassword">Confirm Password</label>
             </span>
 

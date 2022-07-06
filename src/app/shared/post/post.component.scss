@@ -12,14 +12,35 @@
   justify-content: center;
   padding: 0 1rem;
 
+  span{
+    text-align: center;
+  }
+
+  button {
+    border: none;
+    background-color: white;
+  }
+  button:hover{
+    color: orange;
+    cursor: pointer;
+  }
+
   i {
     font-size: larger;
+    font-weight: bolder;
   }
 }
 
 .header {
+  margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
+  span{
+    margin-left: 0.8rem;
+    font-size: smaller;
+    color: grey;
+  }
+
   h3{
     margin: 0;
   }
@@ -37,4 +58,9 @@
   ::ng-deep .p-card-content {
     padding: 0;
   }
+}
+
+.active{
+  color: red;
+
 }

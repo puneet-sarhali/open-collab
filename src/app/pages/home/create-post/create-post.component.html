@@ -1,0 +1,14 @@
+<p-dialog [(visible)]="display" [modal]="true">
+  <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
+        <span class="p-float-label">
+            <input id="projectName" type="text" formControlName="projectName" pInputText>
+            <label for="projectName">Project Name</label>
+        </span>
+        <span class="p-float-label">
+            <textarea pInputTextarea [rows]="10" [cols]="30"  id="projectDescription" type="text" formControlName="projectDescription" ></textarea>
+            <label for="projectDescription">Project Description</label>
+        </span>
+    <button label="Publish" pButton class="p-button-sm"></button>
+  </form>
+</p-dialog>
+<button pButton (click)="showDialog()" type="button" label="Create Post" class="p-button-sm p-button-secondary "></button>

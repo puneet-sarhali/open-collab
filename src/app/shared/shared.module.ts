@@ -8,6 +8,9 @@ import { MenuModule } from 'primeng/menu';
 import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TagModule } from 'primeng/tag';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { PostComponent } from "./post/post.component";
 
@@ -30,7 +33,9 @@ import { PostComponent } from "./post/post.component";
     DividerModule,
     OverlayPanelModule,
     TagModule,
-    PostComponent
+    PostComponent,
+    ReactiveFormsModule,
+    InputTextareaModule
   ]
 })
 export class SharedModule { }

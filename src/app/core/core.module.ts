@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from "../shared/shared.module";
-import { ReactiveFormsModule } from "@angular/forms";
 
 import { SignUpComponent } from './navbar/sign-up/sign-up.component';
 import { ProfileComponent } from './navbar/profile/profile.component';
@@ -12,6 +11,8 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from "../../environments/environment";
 import { provideAuth,getAuth } from '@angular/fire/auth';
 
+import {PasswordModule} from 'primeng/password';
+
 
 @NgModule({
   declarations: [
@@ -19,14 +20,13 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
     SignUpComponent,
     ProfileComponent,
     SignInComponent,
-
   ],
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
+    PasswordModule
   ],
   exports: [
     NavbarComponent

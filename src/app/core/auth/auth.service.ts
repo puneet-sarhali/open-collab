@@ -1,12 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, authState, signOut } from '@angular/fire/auth';
+import { Auth, onAuthStateChanged, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword, authState, signOut } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private auth: Auth) { }
+  _uid!: string | null;
+  _state!: boolean;
+  constructor(private auth: Auth) {
+    onAuthStateChanged(auth, (user) =>{
+      console.log("auth state changed");
+      if(user){
+        this._uid = user.uid;
+        this._state = true;
+      }else{
+        this._state = false;
+        this._uid = null;
+      }
+    })
+  }
 
   createUser(email: string, password: string){
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -20,7 +32,17 @@ export class AuthService {
     return signOut(this.auth)
   }
 
-  getStatus(){
+
+  get uid(){
+    return this.auth.currentUser?.uid;
+  }
+
+  userInfo(){
     return authState(this.auth);
   }
+
+  addName(name: string){
+      return updateProfile(this.auth.currentUser!, {displayName: name});
+  }
+
 }

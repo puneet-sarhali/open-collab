@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 export class NavbarComponent implements OnInit {
   status: Observable<any>;
   constructor(private auth: AuthService) {
-    this.status = this.auth.getStatus()
+    this.status = this.auth.userInfo()
   }
 
   ngOnInit(): void {

@@ -1,4 +1,5 @@
 export interface User{
-    uid: string,
-    projectIds: [string]
+    id: string,
+    email: string | null,
+    name: string | null,
 }
