@@ -1,9 +1,9 @@
 <p-card>
   <div class="wrapper">
     <div class="score">
-        <button (click)="onUpvote()"><i [ngClass]="{'active': voteValue === 0 }" class="pi pi-angle-up"></i></button>
+        <button (click)="onUpvote(inputData[0].projectid)"><i [ngClass]="{'active': voteValue === 0 }" class="pi pi-angle-up"></i></button>
         <span>{{ inputData[0].score }}</span>
-        <button (click)="onDownvote()"><i class="pi pi-angle-down"></i></button>
+        <button (click)="onDownvote()"><i [ngClass]="{'active': voteValue === 1 }" class="pi pi-angle-down"></i></button>
     </div>
     <div>
       <div class="header">

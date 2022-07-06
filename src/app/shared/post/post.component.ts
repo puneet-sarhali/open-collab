@@ -20,6 +20,7 @@ enum VoteVal{
 export class PostComponent implements OnInit {
   @Input() inputData!: [Project, User];
   @Input()  currentUserVotes!: Observable<Vote[]>;
+  @Output() voteVal: EventEmitter<{value: boolean, method: string, projectid: string}> = new EventEmitter;
 
   voteValue: VoteVal = VoteVal.noVote;
   constructor() {
@@ -38,13 +39,43 @@ export class PostComponent implements OnInit {
         }
       })
     })
-
   }
 
-  onUpvote(){
+  onUpvote(projectid: string){
+    if(this.voteValue === VoteVal.downVote){
+      this.voteValue = VoteVal.upVote;
+      const res = {
+        "value": true,
+        "method": "put",
+        "projectid": projectid
+      }
+      return this.voteVal.emit(res);
+    } else if(this.voteValue === VoteVal.upVote){
+      this.voteValue = VoteVal.noVote;
+      const res = {
+        "value": true,
+        "method": "delete",
+        "projectid": projectid
+      }
+      return this.voteVal.emit(res);
+    } else{
+      this.voteValue = VoteVal.upVote;
+      const res = {
+        "value": true,
+        "method": "post",
+        "projectid": projectid
+      }
+      return this.voteVal.emit(res);
+    }
 
   }
   onDownvote(){
-
+    if(this.voteValue === VoteVal.downVote){
+      this.voteValue = VoteVal.noVote;
+    } else if(this.voteValue === VoteVal.upVote){
+      this.voteValue = VoteVal.downVote;
+    } else{
+      this.voteValue = VoteVal.downVote;
+    }
   }
 }

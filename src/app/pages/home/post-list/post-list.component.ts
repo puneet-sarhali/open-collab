@@ -49,8 +49,15 @@ export class PostListComponent implements OnInit {
 
   }
 
-  onUpvote(){
+  onVote(res: {value: boolean, method: string, projectid: string}){
+    const response = {
+      "userid": this.auth.uid,
+      "projectid": res.projectid,
+      "votevalue": res.value
+    }
+    if(res.method === "post"){
 
+    }
   }
 
 

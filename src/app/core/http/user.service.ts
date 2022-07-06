@@ -23,7 +23,15 @@ export class UserService {
   }
 
   vote(data: Vote){
-    return this.http.post<Vote>(this.url + "/votes", data);
+    return this.http.post<Vote>(this.url + `/votes/${data.userid}/${data.projectid}`, data);
+  }
+
+  updateVote(data: Vote){
+    return this.http.put<Vote>(this.url + `/votes/${data.userid}/${data.projectid}`, data);
+  }
+
+  deleteVote(data: Vote){
+    return this.http.delete<Vote>(this.url + `/votes/${data.userid}/${data.projectid}`);
   }
 
   getVotes(uid: string){
