@@ -1,5 +1,5 @@
 export interface Vote{
   "userid": string,
-  "projectid": string,
+  "projectid": number,
   "votevalue": boolean
 }

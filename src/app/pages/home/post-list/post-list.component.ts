@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import { Project } from 'src/app/shared/models/project';
 import { ProjectService } from "../../../core/http/project.service";
 import {User} from "../../../shared/models/user";
@@ -20,22 +20,22 @@ export class PostListComponent implements OnInit {
   @Input() newProject!: Project;
   constructor(private ps: ProjectService, private userService: UserService, private auth: AuthService) {
     //gets all projects and then gets the user data associated with it.
-    ps.getProjects().pipe(
-      mergeMap((projects) => of(...projects)),
-      mergeMap((project) =>  {
-        return combineLatest(of(project), userService.getUser(project.userid!))
-      }),
-      toArray()
-    ).subscribe((value) => this.inputData = value);
+    this.getData()
 
   }
 
+  getData(){
+    this.ps.getProjects().pipe(
+      mergeMap((projects) => of(...projects)),
+      mergeMap((project) =>  {
+        return combineLatest(of(project), this.userService.getUser(project.userid!))
+      }),
+      toArray()
+    ).subscribe((value) => this.inputData = value);
+  }
+
   addItem(project: Project){
-    this.auth.userInfo().pipe(
-      switchMap((user) => this.userService.getUser(user?.uid!)))
-      .subscribe((user)=>{
-      this.inputData.push([project, user]);
-    });
+    this.getData()
   }
 
   //votes made by current user
@@ -49,17 +49,29 @@ export class PostListComponent implements OnInit {
 
   }
 
-  onVote(res: {value: boolean, method: string, projectid: string}){
+  onVote(res: {value: boolean, method: string, projectid: number}){
     const response = {
-      "userid": this.auth.uid,
+      "userid": this.auth.uid!,
       "projectid": res.projectid,
       "votevalue": res.value
     }
     if(res.method === "post"){
-
+      this.userService.vote(response).subscribe(
+        vote => console.log(vote),
+        error => console.log(error)
+      )
+    }else if(res.method === "put"){
+      this.userService.updateVote(response).subscribe(
+        vote => console.log(vote),
+        error => console.log(error)
+      )
+    } else {
+      this.userService.deleteVote(response).subscribe(
+        vote => console.log(vote),
+        error => console.log(error)
+      )
     }
   }
-
 
 
 }

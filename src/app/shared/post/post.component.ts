@@ -20,7 +20,7 @@ enum VoteVal{
 export class PostComponent implements OnInit {
   @Input() inputData!: [Project, User];
   @Input()  currentUserVotes!: Observable<Vote[]>;
-  @Output() voteVal: EventEmitter<{value: boolean, method: string, projectid: string}> = new EventEmitter;
+  @Output() voteVal: EventEmitter<{value: boolean, method: string, projectid: number}> = new EventEmitter;
 
   voteValue: VoteVal = VoteVal.noVote;
   constructor() {
@@ -41,8 +41,9 @@ export class PostComponent implements OnInit {
     })
   }
 
-  onUpvote(projectid: string){
+  onUpvote(projectid: number){
     if(this.voteValue === VoteVal.downVote){
+      this.inputData[0].score += 2;
       this.voteValue = VoteVal.upVote;
       const res = {
         "value": true,
@@ -51,6 +52,7 @@ export class PostComponent implements OnInit {
       }
       return this.voteVal.emit(res);
     } else if(this.voteValue === VoteVal.upVote){
+      this.inputData[0].score--;
       this.voteValue = VoteVal.noVote;
       const res = {
         "value": true,
@@ -59,6 +61,7 @@ export class PostComponent implements OnInit {
       }
       return this.voteVal.emit(res);
     } else{
+      this.inputData[0].score++;
       this.voteValue = VoteVal.upVote;
       const res = {
         "value": true,
@@ -69,13 +72,34 @@ export class PostComponent implements OnInit {
     }
 
   }
-  onDownvote(){
-    if(this.voteValue === VoteVal.downVote){
+  onDownvote(projectid: number){
+    if(this.voteValue === VoteVal.upVote){
+      this.inputData[0].score -= 2;
+      this.voteValue = VoteVal.downVote;
+      const res = {
+        "value": false,
+        "method": "put",
+        "projectid": projectid
+      }
+      return this.voteVal.emit(res);
+    } else if(this.voteValue === VoteVal.downVote){
+      this.inputData[0].score++;
       this.voteValue = VoteVal.noVote;
-    } else if(this.voteValue === VoteVal.upVote){
-      this.voteValue = VoteVal.downVote;
+      const res = {
+        "value": false,
+        "method": "delete",
+        "projectid": projectid
+      }
+      return this.voteVal.emit(res);
     } else{
+      this.inputData[0].score--;
       this.voteValue = VoteVal.downVote;
+      const res = {
+        "value": false,
+        "method": "post",
+        "projectid": projectid
+      }
+      return this.voteVal.emit(res);
     }
   }
 }

@@ -3,7 +3,7 @@ const router = express.Router()
 const pool = require("../db");
 
 
-    
+
 router.post("/", async (req, res) => {
     try {
         const { id , name, email } = req.body;
@@ -28,6 +28,13 @@ router.post("/votes", async (req,res) => {
     try {
         const { userid, projectid, votevalue } = req.body;
         const rows = await pool.query("INSERT INTO vote (userid, projectid, votevalue) VALUES ($1, $2, $3) RETURNING *", [userid, projectid, votevalue]);
+        if(votevalue){
+            await pool.query("UPDATE project SET upvotes = upvotes + 1 WHERE projectid = $1 RETURNING *", [projectid]);
+            await pool.query("UPDATE project SET score = score + 1 WHERE projectid = $1 RETURNING *", [projectid]);
+        }else{
+            await pool.query("UPDATE project SET downvotes = downvotes + 1 WHERE projectid = $1 RETURNING *", [projectid]);
+            await pool.query("UPDATE project SET score = score - 1 WHERE projectid = $1 RETURNING *", [projectid]);
+        }
         res.json(rows.rows[0]);
     } catch (error) {
         res.send(error.message);
@@ -94,17 +101,35 @@ router.route("/votes/:uid/:pid")
             const { userid, projectid, votevalue } = req.body;
             const rows = await pool.query
                 ("UPDATE vote SET userid = $1, projectid = $2, votevalue = $3 WHERE userid = $4 AND projectid = $5 RETURNING *", [userid, projectid, votevalue, uid, pid]);
+
+            if(votevalue){
+                await pool.query("UPDATE project SET upvotes = upvotes + 1, downvotes = downvotes - 1 WHERE projectid = $1 RETURNING *", [projectid]);
+                await pool.query("UPDATE project SET score = score + 2 WHERE projectid = $1 RETURNING *", [projectid]);
+            }else{
+                await pool.query("UPDATE project SET downvotes = downvotes + 1, upvotes = upvotes - 1 WHERE projectid = $1 RETURNING *", [projectid]);
+                await pool.query("UPDATE project SET score = score - 2 WHERE projectid = $1 RETURNING *", [projectid]);
+            }
             res.json(rows.rows);
         } catch (error) {
             res.send(error.message);
         }
-    }).delete(async (req,res) => {
+    })
+router.delete("/votes/:uid/:pid/:votevalue", async (req,res) => {
         try {
-            const { uid, pid } = req.params;
+            const { uid, pid, votevalue} = req.params;
+
+            if(votevalue == 'true'){
+                await pool.query("UPDATE project SET upvotes = upvotes - 1 WHERE projectid = $1 RETURNING *", [pid]);
+                await pool.query("UPDATE project SET score = score - 1 WHERE projectid = $1 RETURNING *", [pid]);
+            }else if(votevalue == 'false'){
+                await pool.query("UPDATE project SET downvotes = downvotes - 1 WHERE projectid = $1 RETURNING *", [pid]);
+                await pool.query("UPDATE project SET score = score + 1 WHERE projectid = $1 RETURNING *", [pid]);
+            }
             const rows = await pool.query("DELETE FROM vote WHERE userid = $1 AND projectid = $2", [uid, pid]);
             res.json(rows.rows);
         } catch (error) {
             res.send(error.message);
+            console.log(error.message);
         }
     })
 

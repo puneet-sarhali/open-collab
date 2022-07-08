@@ -1,12 +1,12 @@
 import { User } from './user';
 export interface Project {
-    projectid: string,
+    projectid: number,
     // projectId: string,
     projectname: string,
     // title: string,
     description: string,
-    // upvotes: number,
-    // downvotes: number,
+    upvotes: number,
+    downvotes: number,
     score: number,
     createdat: Date,
     userid: string | undefined

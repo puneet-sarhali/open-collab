@@ -27,7 +27,7 @@ export class CreatePostComponent implements OnInit {
   onSubmit(){
     // TODO: check uid state with if/else and navigate user to signIn
     const projectData = {
-      "projectid": " ",
+      "projectid": -1,
       "projectname": this.createPostForm.value.projectName,
       "description": this.createPostForm.value.projectDescription,
       "score": 0,

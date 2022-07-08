@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 
 import { KanbanRoutingModule } from './kanban-routing.module';
 
+
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { DragDropModule } from 'primeng/dragdrop';
 import { PanelModule } from 'primeng/panel';
-import { TableModule } from 'primeng/table';
+//import { TableModule } from 'primeng/table';
 
 import { ButtonModule } from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
@@ -22,6 +23,7 @@ import { SharedModule } from "../../shared/shared.module";
   declarations: [
     KanbanComponent,
     TaskComponent
+
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,7 @@ import { SharedModule } from "../../shared/shared.module";
     CardModule,
     DragDropModule,
     PanelModule,
-    TableModule,
+    //TableModule,
     ButtonModule,
     DialogModule,
     SharedModule

@@ -6,7 +6,7 @@ const pool = require("../db");
 router.post("/", async (req, res) => {
     try {
         const { projectname, description, upvotes, downvotes, score, userid, createdat } = req.body;
-        const newRow = await 
+        const newRow = await
         pool.query("INSERT INTO project (projectName, description, upvotes, downvotes, score, userid, createdat) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
                              [projectname, description, upvotes, downvotes, score, userid, createdat]);
         res.json(newRow.rows[0]);
@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 //get all projects
 router.get("/", async (req, res) => {
     try{
-        const allprojects = await pool.query("SELECT * FROM project");
+        const allprojects = await pool.query("SELECT * FROM project ORDER BY score DESC");
         res.json(allprojects.rows);
     }catch (err){
         console.error(err.message);
@@ -36,7 +36,7 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-//update a project 
+//update a project
 router.put("/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -51,7 +51,7 @@ router.put("/:id", async (req, res) => {
 })
 
 
-//delete a project 
+//delete a project
 router.delete("/:id", async (req, res) => {
     try{
         const {id} = req.params;
@@ -62,6 +62,17 @@ router.delete("/:id", async (req, res) => {
         res.status(404).send('ERROR: not idea which error though');
     }
 })
+
+// router.patch("/:id/upvote", async (req, res) => {
+//     try{
+//         const {id} = req.params;
+//         const row = await pool.query("UPDATE project SET upvotes = upvotes + 1 WHERE projectid = $1 RETURNING *", [id]);
+//         res.json(row.rows[0]);
+//     }catch (err){
+//         console.error(err.message);
+//         res.status(404).send('ERROR: not idea which error though');
+//     }
+// })
 
 
 module.exports = router
