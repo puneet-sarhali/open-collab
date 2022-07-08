@@ -1,1 +1,49 @@
-<p>kanban works!</p>
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+        <h1>Kanban Board</h1>
+    </div>
+    
+    <div class="p-toolbar-group-right">
+        <button pButton type="button" (click)="newTask()">+</button>
+    </div>
+</p-toolbar>
+
+<!-- ADD TASK DIALOG -->
+
+<p-dialog header="Header" [(visible)]="displayDialog" [style]="{width: '50vw'}">
+    hello test
+    <p-button (click)="displayDialog=false" label="ADD" styleClass="p-button-text"></p-button>
+</p-dialog>
+
+<!-- CATEGORIES -->
+
+<div class="kanban-grid">
+
+    
+
+    <div class="category">
+        <h2>In Progress</h2>
+        <div *ngFor="let task of inProgressTasks">
+            <div pDraggable="tasks" pDroppable="tasks" (onDragStart)="dragStart($event, task)"
+                (onDragEnd)="dragEnd($event)" (onDrop)="dropToInProgress($event, inProgressTasks)">
+                <p-panel [header]="task.title" [style]="{'text-align':'center'}">
+                    <p>{{task.description}}</p>
+                </p-panel>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="category">
+        <h2>Done</h2>
+        <div *ngFor="let task of doneTasks">
+            <div pDraggable="tasks" pDroppable="tasks" (onDragStart)="dragStart($event, task)" 
+                (onDragEnd)="dragEnd($event)" (onDrop)="dropToDone($event, doneTasks)">
+                <p-panel [header]="task.title" [style]="{'text-align':'center'}">
+                    <p>{{task.description}}</p>
+                </p-panel>
+            </div>
+        </div>
+    </div>
+</div>
