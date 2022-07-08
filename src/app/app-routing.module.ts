@@ -4,6 +4,7 @@ import {PostListComponent} from "./pages/home/post-list/post-list.component";
 import {AppComponent} from "./app.component";
 
 const routes: Routes = [
+  { path: 'kanban', loadChildren: () => import('./pages/kanban/kanban.module').then(m => m.KanbanModule)},
   { path: '',  component: PostListComponent },
   { path: '**',  component: AppComponent }
   ];

@@ -8,16 +8,14 @@ import { CardModule } from 'primeng/card';
 import { DragDropModule } from 'primeng/dragdrop';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Button, ButtonModule } from 'primeng/button';
+
+import { ButtonModule } from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 
 import { KanbanComponent } from './kanban/kanban.component';
 import { TaskComponent } from './task/task.component';
 
-
-
+import { SharedModule } from "../../shared/shared.module";
 
 
 @NgModule({
@@ -35,10 +33,9 @@ import { TaskComponent } from './task/task.component';
     DragDropModule,
     PanelModule,
     TableModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
     ButtonModule,
-    DialogModule
+    DialogModule,
+    SharedModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
