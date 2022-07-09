@@ -27,19 +27,4 @@ CREATE TABLE vote(
     FOREIGN KEY (projectid) REFERENCES project(projectid) ON DELETE CASCADE
 );
 
-CREATE OR REPLACE FUNCTION count_score()
-RETURNS TRIGGER
-LANGUAGE PLPGSQL
-AS
-$$
-BEGIN
-    UPDATE project SET score = NEW.upvotes - NEW.downvotes WHERE projectid = NEW.projectid;
-    RETURN NEW;
-END;
-$$
 
-CREATE TRIGGER score_count
-AFTER UPDATE
-ON project
-FOR EACH ROW
-EXECUTE PROCEDURE count_score();

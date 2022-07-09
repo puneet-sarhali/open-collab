@@ -12,6 +12,7 @@ import { environment } from "../../environments/environment";
 import { provideAuth,getAuth } from '@angular/fire/auth';
 
 import {PasswordModule} from 'primeng/password';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {PasswordModule} from 'primeng/password';
     SignUpComponent,
     ProfileComponent,
     SignInComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,

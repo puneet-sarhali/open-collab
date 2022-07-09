@@ -18,7 +18,10 @@ router.post("/", async (req, res) => {
 //get all projects
 router.get("/", async (req, res) => {
     try{
-        const allprojects = await pool.query("SELECT * FROM project ORDER BY score DESC");
+        const allprojects = await pool.query
+        (`SELECT * FROM project
+        INNER JOIN users
+        ON project.userid = users.id`);
         res.json(allprojects.rows);
     }catch (err){
         console.error(err.message);
@@ -29,7 +32,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try{
         const {id} = req.params;
-        const project = await pool.query("SELECT * FROM project WHERE projectid = $1", [id]);
+        const project = await pool.query("SELECT * FROM project INNER JOIN users ON project.userid = users.id WHERE projectid = $1 ", [id]);
         res.json(project.rows[0]);
     }catch (err){
         console.error(err.message);

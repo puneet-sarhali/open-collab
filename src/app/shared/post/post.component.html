@@ -1,19 +1,23 @@
-<p-card>
-  <div class="wrapper">
-    <div class="score">
-        <button (click)="onUpvote(inputData[0].projectid)"><i [ngClass]="{'up': voteValue === 0 }" class="pi pi-caret-up"></i></button>
-        <span>{{ inputData[0].score }}</span>
-        <button (click)="onDownvote(inputData[0].projectid)"><i [ngClass]="{'down': voteValue === 1 }" class="pi pi-caret-down"></i></button>
-    </div>
-    <div>
-      <div class="header">
-        <h3>{{ inputData[0].projectname | uppercase}} </h3>
-        <span> &#183; {{inputData[1].name}}</span>
-        <span> &#183; {{inputData[0].createdat | date}} </span>
+
+  <p-card *ngIf="project">
+    <div class="wrapper">
+      <div class="score">
+          <button (click)="onUpvote(project.projectid)"><i [ngClass]="{'up': voteValue === 0 }" class="pi pi-caret-up"></i></button>
+          <span>{{ project.score }}</span>
+          <button (click)="onDownvote(project.projectid)"><i [ngClass]="{'down': voteValue === 1 }" class="pi pi-caret-down"></i></button>
       </div>
-      <div class="body">
-        <p>{{ inputData[0].description }}</p>
-      </div>
+      <a *ngIf="!fromProject" [routerLink]="['/project',project.projectid]">
+        <div>
+          <div class="header">
+            <h3>{{ project.projectname | uppercase}} </h3>
+            <span> &#183; {{project.name}}</span>
+            <span> &#183; {{project.createdat | date}} </span>
+          </div>
+          <div class="body">
+            <p>{{ project.description }}</p>
+          </div>
+        </div>
+      </a>
     </div>
-  </div>
-</p-card>
+  </p-card>
+

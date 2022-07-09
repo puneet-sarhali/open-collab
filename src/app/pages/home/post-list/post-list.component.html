@@ -1,6 +1,6 @@
 <app-create-post (newProject)="addItem($event)"></app-create-post>
-<app-post *ngFor="let data of inputData"
-          [inputData]="data"
+<app-post *ngFor="let data of inputData$ | async"
+          [project]="data"
           [currentUserVotes]="getVotes()"
           (voteVal)="onVote($event)"
 >

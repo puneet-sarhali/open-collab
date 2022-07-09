@@ -7,13 +7,16 @@ import { CreatePostComponent } from './create-post/create-post.component';
 
 
 @NgModule({
-  declarations: [
-    PostListComponent,
-    CreatePostComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule
-  ]
+    declarations: [
+        PostListComponent,
+        CreatePostComponent
+    ],
+    exports: [
+        PostListComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedModule
+    ]
 })
 export class HomeModule { }

@@ -13,6 +13,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { PostComponent } from "./post/post.component";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { PostComponent } from "./post/post.component";
   ],
   imports: [
     CommonModule,
+    RouterModule,
     CardModule,
     ButtonModule
   ],
@@ -35,7 +37,8 @@ import { PostComponent } from "./post/post.component";
     TagModule,
     PostComponent,
     ReactiveFormsModule,
-    InputTextareaModule
+    InputTextareaModule,
+
   ]
 })
 export class SharedModule { }

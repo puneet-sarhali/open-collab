@@ -4,7 +4,7 @@ import { ProjectService } from "../../../core/http/project.service";
 import {User} from "../../../shared/models/user";
 import {AuthService} from "../../../core/auth/auth.service";
 import {UserService} from "../../../core/http/user.service";
-import {combineLatest, mergeMap, of, switchMap, toArray} from "rxjs";
+import {combineLatest, mergeMap, Observable, of, switchMap, toArray} from "rxjs";
 import {Vote} from "../../../shared/models/vote";
 
 
@@ -14,24 +14,17 @@ import {Vote} from "../../../shared/models/vote";
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  inputData!: [Project, User][];
-  users!: User[];
+  inputData$: Observable<Project[]>;
 
   @Input() newProject!: Project;
   constructor(private ps: ProjectService, private userService: UserService, private auth: AuthService) {
     //gets all projects and then gets the user data associated with it.
-    this.getData()
+    this.inputData$ = this.getData()
 
   }
 
   getData(){
-    this.ps.getProjects().pipe(
-      mergeMap((projects) => of(...projects)),
-      mergeMap((project) =>  {
-        return combineLatest(of(project), this.userService.getUser(project.userid!))
-      }),
-      toArray()
-    ).subscribe((value) => this.inputData = value);
+    return this.ps.getProjects()
   }
 
   addItem(project: Project){

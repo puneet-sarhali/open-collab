@@ -18,4 +18,8 @@ export class ProjectService {
     return this.http.post<Project[]>(this.url, project);
   }
 
+  getProject(projectid: number){
+    return this.http.get<Project>(this.url + `/${projectid}`);
+  }
+
 }
