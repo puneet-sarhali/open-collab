@@ -10,8 +10,8 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   //
-  getProjects(){
-    return this.http.get<Project[]>(this.url);
+  getProjects(sort_by: string = "score"){
+    return this.http.get<Project[]>(this.url + `?sort_by=${sort_by}`);
   }
 
   createProject(project: Project){
@@ -20,6 +20,10 @@ export class ProjectService {
 
   getProject(projectid: number){
     return this.http.get<Project>(this.url + `/${projectid}`);
+  }
+
+  getMyProjects(userid: string){
+    return this.http.get<Project[]>(this.url + `/users/${userid}`);
   }
 
 }

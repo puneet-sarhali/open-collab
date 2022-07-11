@@ -14,22 +14,46 @@ import {Vote} from "../../../shared/models/vote";
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  inputData$: Observable<Project[]>;
+  inputData!: Project[];
+  myProjects!: Project[];
+  searchValue!: string;
+  sortOptions = [
+    {label: 'Top', value: "score", icon: "pi pi-chart-line"},
+    {label: 'New', value: "createdat", icon: "pi pi-bell"}
+  ];
+  sortValue: string = "score";
 
   @Input() newProject!: Project;
   constructor(private ps: ProjectService, private userService: UserService, private auth: AuthService) {
     //gets all projects and then gets the user data associated with it.
-    this.inputData$ = this.getData()
-
+    this.getData()
+    this.getMyProjects();
   }
-
-  getData(){
-    return this.ps.getProjects()
-  }
-
+  //every time new project is added
   addItem(project: Project){
     this.getData()
+    this.getMyProjects()
   }
+
+  onSortChange(){
+    this.getData(this.sortValue);
+  }
+
+  getMyProjects(){
+    this.auth.userInfo().pipe(
+      switchMap((user) => this.ps.getMyProjects(user?.uid!))
+    ).subscribe((myProjects) =>{
+      this.myProjects = myProjects;
+    })
+  }
+
+  getData(sort_by: string = "score"){
+    this.ps.getProjects(sort_by).subscribe({
+      next: value => this.inputData = value
+    })
+  }
+
+
 
   //votes made by current user
   getVotes(){
@@ -42,29 +66,7 @@ export class PostListComponent implements OnInit {
 
   }
 
-  onVote(res: {value: boolean, method: string, projectid: number}){
-    const response = {
-      "userid": this.auth.uid!,
-      "projectid": res.projectid,
-      "votevalue": res.value
-    }
-    if(res.method === "post"){
-      this.userService.vote(response).subscribe(
-        vote => console.log(vote),
-        error => console.log(error)
-      )
-    }else if(res.method === "put"){
-      this.userService.updateVote(response).subscribe(
-        vote => console.log(vote),
-        error => console.log(error)
-      )
-    } else {
-      this.userService.deleteVote(response).subscribe(
-        vote => console.log(vote),
-        error => console.log(error)
-      )
-    }
-  }
+
 
 
 }

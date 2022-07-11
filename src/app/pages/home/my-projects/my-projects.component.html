@@ -1,0 +1,9 @@
+<p-card>
+  <h2>My Projects</h2>
+  <div *ngFor="let project of myProjects; let i = index">
+    <p> <span>{{i+1}}:</span> {{ project.projectname }}</p>
+    <p>To do (27)</p>
+    <p>Completed (10)</p>
+  </div>
+  <p-divider></p-divider>
+</p-card>

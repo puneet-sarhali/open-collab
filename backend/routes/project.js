@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const pool = require("../db");
 
+
 //create a project
 router.post("/", async (req, res) => {
     try {
@@ -17,16 +18,20 @@ router.post("/", async (req, res) => {
 
 //get all projects
 router.get("/", async (req, res) => {
+    const sort_by = req.query.sort_by;
+    const order = req.query.order;
     try{
         const allprojects = await pool.query
         (`SELECT * FROM project
         INNER JOIN users
-        ON project.userid = users.id`);
+        ON project.userid = users.id
+        ORDER BY project.${sort_by} DESC`);
         res.json(allprojects.rows);
     }catch (err){
         console.error(err.message);
     }
 })
+
 
 //get a project
 router.get("/:id", async (req, res) => {
@@ -36,6 +41,17 @@ router.get("/:id", async (req, res) => {
         res.json(project.rows[0]);
     }catch (err){
         console.error(err.message);
+    }
+})
+
+//get all projects by a specific user
+router.get("/users/:uid", async (req, res) => {
+    const {uid} = req.params;
+    try {
+        const newRow = await pool.query("SELECT * FROM project INNER JOIN users ON project.userid = users.id WHERE users.id = $1", [uid]);
+        res.json(newRow.rows);
+    } catch (err) {
+        res.send(err.message);
     }
 })
 

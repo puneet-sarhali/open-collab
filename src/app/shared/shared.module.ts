@@ -9,16 +9,22 @@ import { DividerModule } from 'primeng/divider';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TagModule } from 'primeng/tag';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {DropdownModule} from 'primeng/dropdown';
+import { ToolbarModule } from "primeng/toolbar";
+import { SelectButtonModule } from 'primeng/selectbutton';
 
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule ,ReactiveFormsModule } from "@angular/forms";
 
 import { PostComponent } from "./post/post.component";
 import { RouterModule } from "@angular/router";
 
+import {TimeSincePipe} from "./pipes/time-since.pipe";
+
 
 @NgModule({
   declarations: [
-    PostComponent
+    PostComponent,
+    TimeSincePipe
   ],
   imports: [
     CommonModule,
@@ -38,6 +44,10 @@ import { RouterModule } from "@angular/router";
     PostComponent,
     ReactiveFormsModule,
     InputTextareaModule,
+    DropdownModule,
+    FormsModule,
+    ToolbarModule,
+    SelectButtonModule
 
   ]
 })

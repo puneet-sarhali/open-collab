@@ -36,9 +36,15 @@ export class CreatePostComponent implements OnInit {
       "createdat": new Date(),
       "userid": this.auth.uid!
     }
-    this.ps.createProject(projectData).subscribe((res)=>{
-      this.newProject.emit(projectData);
-    })
+
+    this.ps.createProject(projectData).subscribe({
+        next: (project) => {
+          this.newProject.emit(projectData)
+          this.display = false;
+        },
+        error: (err)=> console.log(err)
+      }
+    )
 
   }
   showDialog(){

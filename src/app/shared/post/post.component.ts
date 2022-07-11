@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Project } from 'src/app/shared/models/project';
 import {Vote} from "../models/vote";
 import {Observable} from "rxjs";
+import {ProjectService} from "../../core/http/project.service";
+import {UserService} from "../../core/http/user.service";
+import {AuthService} from "../../core/auth/auth.service";
 
 
 
@@ -20,10 +23,9 @@ export class PostComponent implements OnInit {
   @Input() project!: Project;
   @Input()  currentUserVotes!: Observable<Vote[]>;
   @Input() fromProject: boolean = false;
-  @Output() voteVal: EventEmitter<{value: boolean, method: string, projectid: number}> = new EventEmitter;
 
   voteValue: VoteVal = VoteVal.noVote;
-  constructor() {
+  constructor(private ps: ProjectService, private userService: UserService, private auth: AuthService) {
 
   }
 
@@ -50,7 +52,7 @@ export class PostComponent implements OnInit {
         "method": "put",
         "projectid": projectid
       }
-      return this.voteVal.emit(res);
+      this.onVote(res);
     } else if(this.voteValue === VoteVal.upVote){
       this.project.score--;
       this.voteValue = VoteVal.noVote;
@@ -59,7 +61,7 @@ export class PostComponent implements OnInit {
         "method": "delete",
         "projectid": projectid
       }
-      return this.voteVal.emit(res);
+      this.onVote(res);
     } else{
       this.project.score++;
       this.voteValue = VoteVal.upVote;
@@ -68,7 +70,7 @@ export class PostComponent implements OnInit {
         "method": "post",
         "projectid": projectid
       }
-      return this.voteVal.emit(res);
+      this.onVote(res);
     }
 
   }
@@ -81,7 +83,7 @@ export class PostComponent implements OnInit {
         "method": "put",
         "projectid": projectid
       }
-      return this.voteVal.emit(res);
+      this.onVote(res);
     } else if(this.voteValue === VoteVal.downVote){
       this.project.score++;
       this.voteValue = VoteVal.noVote;
@@ -90,7 +92,7 @@ export class PostComponent implements OnInit {
         "method": "delete",
         "projectid": projectid
       }
-      return this.voteVal.emit(res);
+      this.onVote(res);
     } else{
       this.project.score--;
       this.voteValue = VoteVal.downVote;
@@ -99,7 +101,31 @@ export class PostComponent implements OnInit {
         "method": "post",
         "projectid": projectid
       }
-      return this.voteVal.emit(res);
+      this.onVote(res);
+    }
+  }
+
+  onVote(res: {value: boolean, method: string, projectid: number}){
+    const response = {
+      "userid": this.auth.uid!,
+      "projectid": res.projectid,
+      "votevalue": res.value
+    }
+    if(res.method === "post"){
+      this.userService.vote(response).subscribe(
+        vote => console.log(vote),
+        error => console.log(error)
+      )
+    }else if(res.method === "put"){
+      this.userService.updateVote(response).subscribe(
+        vote => console.log(vote),
+        error => console.log(error)
+      )
+    } else {
+      this.userService.deleteVote(response).subscribe(
+        vote => console.log(vote),
+        error => console.log(error)
+      )
     }
   }
 }

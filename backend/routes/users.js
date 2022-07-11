@@ -3,7 +3,7 @@ const router = express.Router()
 const pool = require("../db");
 
 
-
+//create a user
 router.post("/", async (req, res) => {
     try {
         const { id , name, email } = req.body;
@@ -14,6 +14,7 @@ router.post("/", async (req, res) => {
     }
 })
 
+//get all users
 router.get("/", async (req, res) => {
     try {
         const newRow = await pool.query("SELECT * FROM users")
@@ -43,7 +44,7 @@ router.post("/votes", async (req,res) => {
 })
 
 
-//for user
+//get a specific user
 router.route("/:id")
     .get(async (req, res) => {
         try {

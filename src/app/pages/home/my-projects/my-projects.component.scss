@@ -1,0 +1,13 @@
+:host ::ng-deep .p-card{
+  position: sticky;
+  top: 6.2rem;
+  z-index: 2;
+  background-color: var(--bluegray-50);
+  .p-card-content{
+    padding: 0;
+  }
+
+  h2{
+    margin-top: 0;
+  }
+}

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
-
-import { TaskService } from '../service/task.service';
-import { Task } from '../service/task';
+interface Task{
+  id: string,
+  title: string,
+  description: string
+}
 
 @Component({
   selector: 'app-kanban',
@@ -41,9 +43,9 @@ export class KanbanComponent implements OnInit {
 
   displayDialog: boolean = false;
 
-  constructor(private taskService: TaskService) { }
+  constructor() { }
 
-  
+
   ngOnInit(): void { }
   //   this.taskService.getInProgressList().then(tasks => this.inProgressTasks = tasks);
   //   this.taskService.getDoneList().then(tasks => this.doneTasks = tasks);
@@ -53,7 +55,7 @@ export class KanbanComponent implements OnInit {
   dragStart(event: any, task: Task) {
         this.draggedTask = task;
   }
-  
+
   // allow inProgressTasks to be dropped into doneTasks
   dropToDone(event: any, dropped:Task[]) {
         if (this.draggedTask) {
@@ -73,11 +75,11 @@ export class KanbanComponent implements OnInit {
             this.draggedTask = null;
         }
   }
-  
+
   dragEnd(event: any) {
         this.draggedTask = null;
   }
-  
+
   findIndexInProgress(task: Task) {
       let index = -1;
       for (let i = 0; i < this.inProgressTasks.length; i++) {
@@ -108,5 +110,5 @@ export class KanbanComponent implements OnInit {
 }
 
 //assign tasks
-// in the todo users can select an item and they can request to contribute to it 
+// in the todo users can select an item and they can request to contribute to it
 // if time: manager can assign people to tasks

@@ -6,18 +6,32 @@
           <span>{{ project.score }}</span>
           <button (click)="onDownvote(project.projectid)"><i [ngClass]="{'down': voteValue === 1 }" class="pi pi-caret-down"></i></button>
       </div>
-      <a *ngIf="!fromProject" [routerLink]="['/project',project.projectid]">
+<!--      this view if called from project list-->
+      <a *ngIf="!fromProject; else projectView" [routerLink]="['/project',project.projectid]">
         <div>
           <div class="header">
             <h3>{{ project.projectname | uppercase}} </h3>
-            <span> &#183; {{project.name}}</span>
-            <span> &#183; {{project.createdat | date}} </span>
+            <span> &#183; posted by {{project.name}}</span>
+            <span> &#183; {{project.createdat | timeSince}} ago</span>
           </div>
           <div class="body">
             <p>{{ project.description }}</p>
           </div>
         </div>
       </a>
+<!--      This template if called from individual project-->
+      <ng-template #projectView>
+        <div>
+          <div class="header">
+            <h3>{{ project.projectname | uppercase}} </h3>
+            <span> &#183; Created by {{project.name}}</span>
+            <span> &#183; {{project.createdat | timeSince}} ago</span>
+          </div>
+          <div class="body">
+            <p>{{ project.description }}</p>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </p-card>
 

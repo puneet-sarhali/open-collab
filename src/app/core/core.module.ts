@@ -31,7 +31,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     PasswordModule
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
   ]
 })
 export class CoreModule { }

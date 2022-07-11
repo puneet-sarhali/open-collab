@@ -1,9 +1,31 @@
-<app-create-post (newProject)="addItem($event)"></app-create-post>
-<app-post *ngFor="let data of inputData$ | async"
-          [project]="data"
-          [currentUserVotes]="getVotes()"
-          (voteVal)="onVote($event)"
->
+<!--<p-dropdown [options]="sortOptions" [(ngModel)]="selectedOption"  (onChange)="onDropdownChange()"></p-dropdown>-->
 
-</app-post>
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-selectButton (onChange)="onSortChange()" [options]="sortOptions" [(ngModel)]="sortValue"  optionLabel="label" optionValue="value">
+      <ng-template let-item>
+        <i [class]="item.icon"></i>
+        <span [ngStyle]="{marginLeft: '0.5rem'}">{{ item.label }}</span>
+      </ng-template>
+    </p-selectButton>
+  </div>
+  <div class="p-toolbar-group-right" >
+    <span class="p-input-icon-left">
+      <i class="pi pi-search"></i>
+      <input [ngStyle]="{marginRight: '0.5rem'}" type="text" pInputText placeholder="Search" [(ngModel)]="searchValue" />
+    </span>
+    <app-create-post  (newProject)="addItem($event)"></app-create-post>
+  </div>
+
+</p-toolbar>
+
+<div class="main">
+  <div>
+    <app-post *ngFor="let data of inputData | filter: searchValue"
+              [project]="data"
+              [currentUserVotes]="getVotes()">
+    </app-post>
+  </div>
+  <app-my-projects [myProjects]="myProjects"></app-my-projects>
+</div>
 
