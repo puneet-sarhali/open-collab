@@ -1,14 +1,25 @@
-<p-dialog [(visible)]="display" [modal]="true">
-  <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
-        <span class="p-float-label">
-            <input id="projectName" type="text" formControlName="projectName" pInputText>
-            <label for="projectName">Project Name</label>
-        </span>
-        <span class="p-float-label">
-            <textarea pInputTextarea [rows]="10" [cols]="30"  id="projectDescription" type="text" formControlName="projectDescription" ></textarea>
-            <label for="projectDescription">Project Description</label>
-        </span>
-    <button label="Publish" pButton class="p-button-sm"></button>
-  </form>
-</p-dialog>
-<button pButton icon="pi pi-plus" (click)="showDialog()" type="button" label="Create Post" ></button>
+
+<p-steps [model]="items" ></p-steps>
+
+  <p-card header="Enter Project Info:">
+    <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
+          <span class="p-float-label">
+              <input id="projectName" type="text" formControlName="projectName" pInputText>
+              <label for="projectName">Project Name</label>
+          </span>
+          <span class="p-float-label">
+              <textarea pInputTextarea [rows]="10" [cols]="50"  id="projectDescription" type="text" formControlName="projectDescription" ></textarea>
+              <label for="projectDescription">Project Description</label>
+          </span>
+          <div>
+            <label for="chips">Project Tags (max 3)</label>
+            <p-chips id="chips" [allowDuplicate]="false" [max]="3" [placeholder]="'eg: Angular React Typescript etc'"></p-chips>
+          </div>
+
+
+
+      <button label="Publish" pButton class="p-button-sm"></button>
+    </form>
+  </p-card>
+
+

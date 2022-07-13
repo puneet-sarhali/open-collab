@@ -14,7 +14,8 @@
       <i class="pi pi-search"></i>
       <input [ngStyle]="{marginRight: '0.5rem'}" type="text" pInputText placeholder="Search" [(ngModel)]="searchValue" />
     </span>
-    <app-create-post  (newProject)="addItem($event)"></app-create-post>
+
+    <button pButton icon="pi pi-plus" [routerLink]="['create-post']" type="button" label="Create Post" ></button>
   </div>
 
 </p-toolbar>

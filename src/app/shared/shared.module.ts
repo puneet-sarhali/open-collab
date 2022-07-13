@@ -12,6 +12,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import {DropdownModule} from 'primeng/dropdown';
 import { ToolbarModule } from "primeng/toolbar";
 import { SelectButtonModule } from 'primeng/selectbutton';
+import {StepsModule} from 'primeng/steps';
+import {ChipsModule} from 'primeng/chips';
 
 import { FormsModule ,ReactiveFormsModule } from "@angular/forms";
 
@@ -47,7 +49,9 @@ import {TimeSincePipe} from "./pipes/time-since.pipe";
     DropdownModule,
     FormsModule,
     ToolbarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    StepsModule,
+    ChipsModule
 
   ]
 })
