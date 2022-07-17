@@ -4,7 +4,6 @@ import {ProjectService} from "../../../core/http/project.service";
 import {Project} from "../../../shared/models/project";
 import {AuthService} from "../../../core/auth/auth.service";
 import {MenuItem} from 'primeng/api';
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-post',
@@ -12,6 +11,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./create-post.component.scss']
 })
 export class CreatePostComponent implements OnInit {
+  display: boolean = false;
   @Output() newProject: EventEmitter<Project> = new EventEmitter<Project>()
   items: MenuItem[] =  [
     {label: 'Project Info'},
@@ -32,26 +32,31 @@ export class CreatePostComponent implements OnInit {
 
   onSubmit(){
     // TODO: check uid state with if/else and navigate user to signIn
-    // const projectData = {
-    //   "projectid": -1,
-    //   "projectname": this.createPostForm.value.projectName,
-    //   "description": this.createPostForm.value.projectDescription,
-    //   "score": 0,
-    //   "upvotes": 0,
-    //   "downvotes": 0,
-    //   "createdat": new Date(),
-    //   "userid": this.auth.uid!
-    // }
-    //
-    // this.ps.createProject(projectData).subscribe({
-    //     next: (project) => {
-    //       this.newProject.emit(projectData)
-    //       this.display = false;
-    //     },
-    //     error: (err)=> console.log(err)
-    //   }
-    // )
+    const projectData = {
+      "projectid": -1,
+      "projectname": this.createPostForm.value.projectName,
+      "description": this.createPostForm.value.projectDescription,
+      "score": 0,
+      "upvotes": 0,
+      "downvotes": 0,
+      "createdat": new Date(),
+      "userid": this.auth.uid!
+    }
+
+    this.ps.createProject(projectData).subscribe({
+        next: (project) => {
+          this.newProject.emit(projectData)
+          this.display = false;
+        },
+        error: (err)=> console.log(err)
+      }
+    )
 
   }
+
+  showDialog(){
+    this.display = true;
+  }
+
 
 }

@@ -1,6 +1,5 @@
 
-<p-steps [model]="items" ></p-steps>
-
+<p-dialog [(visible)]="display" [modal]="true">
   <p-card header="Enter Project Info:">
     <form [formGroup]="createPostForm" (ngSubmit)="onSubmit()">
           <span class="p-float-label">
@@ -11,15 +10,18 @@
               <textarea pInputTextarea [rows]="10" [cols]="50"  id="projectDescription" type="text" formControlName="projectDescription" ></textarea>
               <label for="projectDescription">Project Description</label>
           </span>
-          <div>
-            <label for="chips">Project Tags (max 3)</label>
-            <p-chips id="chips" [allowDuplicate]="false" [max]="3" [placeholder]="'eg: Angular React Typescript etc'"></p-chips>
-          </div>
+<!--          <div>-->
+<!--            <label for="chips">Project Tags (max 3)</label>-->
+<!--            <p-chips id="chips" [allowDuplicate]="false" [max]="3" [placeholder]="'eg: Angular React Typescript etc'"></p-chips>-->
+<!--          </div>-->
 
 
 
       <button label="Publish" pButton class="p-button-sm"></button>
     </form>
   </p-card>
+</p-dialog>
+<button pButton (click)="showDialog()" type="button" label="Create Post" class="p-button-sm p-button-secondary "></button>
+
 
 
