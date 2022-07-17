@@ -1,49 +1,56 @@
-<p-toolbar>
-    <div class="p-toolbar-group-left">
-        <h1>To Do</h1>
-    </div>
-
-    <div class="p-toolbar-group-right">
-        <button pButton type="button" (click)="newTask()">+</button>
-    </div>
-</p-toolbar>
-
-<!-- ADD TASK DIALOG -->
-
-<p-dialog header="Header" [(visible)]="displayDialog" [style]="{width: '50vw'}">
-    hello test
-    <p-button (click)="displayDialog=false" label="ADD" styleClass="p-button-text"></p-button>
-</p-dialog>
+<mat-toolbar>
+    <h1>Kanban Board</h1>
+    <p-button (click)="newTask()" mat-button>+</p-button>
+</mat-toolbar>
 
 <!-- CATEGORIES -->
 
-<div class="kanban-grid">
+<div class="container-wrapper">
+  <div class="container">
+    <h2>To Do</h2>
 
+    <mat-card
+      cdkDropList
+      id="todo"
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[doneList, inProgressList]"
+      (cdkDropListDropped)="drop($event)"
+      class="list">
+      <p class="empty-label" *ngIf="todo.length === 0">Empty list</p>
+      <app-task (edit)="editTask('todo', $event)" *ngFor="let task of todo" cdkDrag [task]="task"></app-task>
+    </mat-card>
+  </div>
 
+  <div class="container">
+    <h2>In progress</h2>
 
-    <div class="category">
-        <h2>In Progress</h2>
-        <div *ngFor="let task of inProgressTasks">
-            <div pDraggable="tasks" pDroppable="tasks" (onDragStart)="dragStart($event, task)"
-                (onDragEnd)="dragEnd($event)" (onDrop)="dropToInProgress($event, inProgressTasks)">
-                <p-panel [header]="task.title" [style]="{'text-align':'center'}">
-                    <p>{{task.description}}</p>
-                </p-panel>
-            </div>
-        </div>
-    </div>
+    <mat-card
+      cdkDropList
+      id="inProgress"
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="inProgress"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      (cdkDropListDropped)="drop($event)"
+      class="list">
+      <p class="empty-label" *ngIf="inProgress.length === 0">Empty list</p>
+      <app-task (edit)="editTask('inProgress', $event)" *ngFor="let task of inProgress" cdkDrag [task]="task"></app-task>
+    </mat-card>
+  </div>
 
+  <div class="container">
+    <h2>Done</h2>
 
-
-    <div class="category">
-        <h2>Done</h2>
-        <div *ngFor="let task of doneTasks">
-            <div pDraggable="tasks" pDroppable="tasks" (onDragStart)="dragStart($event, task)"
-                (onDragEnd)="dragEnd($event)" (onDrop)="dropToDone($event, doneTasks)">
-                <p-panel [header]="task.title" [style]="{'text-align':'center'}">
-                    <p>{{task.description}}</p>
-                </p-panel>
-            </div>
-        </div>
-    </div>
+    <mat-card
+      cdkDropList
+      id="done"
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList, inProgressList]"
+      (cdkDropListDropped)="drop($event)"
+      class="list">
+      <p class="empty-label" *ngIf="done.length === 0">Empty list</p>
+      <app-task (edit)="editTask('done', $event)" *ngFor="let task of done" cdkDrag [task]="task"></app-task>
+    </mat-card>
+  </div>
 </div>

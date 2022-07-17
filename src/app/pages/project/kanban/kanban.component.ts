@@ -1,114 +1,107 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
-interface Task{
-  id: string,
-  title: string,
-  description: string
-}
+
+// import { TaskService } from '../service/task.service';
+import { Task } from '../task/task';
+import { DialogModule } from 'primeng/dialog';
+import { TaskDialogComponent, TaskDialogResult } from '../task-dialog/task-dialog.component';
+
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-kanban',
   templateUrl: './kanban.component.html',
-  styleUrls: ['./kanban.component.scss']
+  styleUrls: ['./kanban.component.scss'],
 })
-export class KanbanComponent implements OnInit {
+  
+export class KanbanComponent {
 
-  inProgressTasks: Task[] = [
+  todo: Task[] = [
     {
-      id: "3",
+      id: "5",
       title: 'Do Something',
       description: 'This is the description'
     },
     {
-      id: "4",
+      id: "6",
       title: 'Create a Task',
       description: 'yay!'
     }
   ];
 
-  doneTasks: Task[] = [
-    {
-      id: "1",
-      title: 'Running',
-      description: 'go fast :D'
-    },
-    {
-      id: "2",
-      title: 'finish homework',
-      description: 'lots to do...'
-    }
-  ];;
+  inProgress: Task[] = [
+  ];
 
-  draggedTask!: Task | null;
+  done: Task[] = [
+  ];
+
+  constructor(private dialog: MatDialog) {}
+
+  editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '40%',
+      data: {
+        task,
+        enableDelete: true,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result: TaskDialogResult|undefined) => {
+      if (!result) {
+        return;
+      }
+      const dataList = this[list];
+      const taskIndex = dataList.indexOf(task);
+      if (result.delete) {
+        dataList.splice(taskIndex, 1);
+      } else {
+        dataList[taskIndex] = task;
+      }
+    });
+  }
+  
+
+  drop(event: CdkDragDrop<Task[]>): void {
+    if (event.previousContainer === event.container) {
+      return;
+    }
+    if (!event.container.data || !event.previousContainer.data) {
+      return;
+    }
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
 
   displayDialog: boolean = false;
 
-  constructor() { }
-
-
-  ngOnInit(): void { }
-  //   this.taskService.getInProgressList().then(tasks => this.inProgressTasks = tasks);
-  //   this.taskService.getDoneList().then(tasks => this.doneTasks = tasks);
-  //   console.log(this.doneTasks);
-  // }
-
-  dragStart(event: any, task: Task) {
-        this.draggedTask = task;
-  }
-
-  // allow inProgressTasks to be dropped into doneTasks
-  dropToDone(event: any, dropped:Task[]) {
-        if (this.draggedTask) {
-            let draggedTaskIndex = this.findIndexInProgress(this.draggedTask);
-            this.doneTasks = [...this.doneTasks, this.draggedTask];
-            this.inProgressTasks = this.inProgressTasks.filter((val, i) => i != draggedTaskIndex);
-            this.draggedTask = null;
-        }
-  }
-//TODO: implement with array
-  // allow doneTasks to be dropped into inProgressTasks
-  dropToInProgress(event: any, dropped:Task[]) {
-        if (this.draggedTask) {
-            let draggedTaskIndex = this.findIndexDone(this.draggedTask);
-            this.inProgressTasks = [...this.inProgressTasks, this.draggedTask];
-            this.doneTasks = this.doneTasks.filter((val, i) => i != draggedTaskIndex);
-            this.draggedTask = null;
-        }
-  }
-
-  dragEnd(event: any) {
-        this.draggedTask = null;
-  }
-
-  findIndexInProgress(task: Task) {
-      let index = -1;
-      for (let i = 0; i < this.inProgressTasks.length; i++) {
-          if (task.id === this.inProgressTasks[i].id) {
-              index = i;
-              break;
-          }
-      }
-      return index;
-  }
-  findIndexDone(task: Task) {
-      let index = -1;
-      for (let i = 0; i < this.doneTasks.length; i++) {
-          if (task.id === this.doneTasks[i].id) {
-              index = i;
-              break;
-          }
-      }
-      return index;
-  }
-
   newTask(): void {
-    this.displayDialog = true;
+    // this.displayDialog = true;
 
-    //TODO: add saving and taking inputs for the new taks
-  }
+    // open the dialogue window
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
+      width: '50%',
+      data: {
+        task: {},
+      },
+    });
 
-}
+    // on close of dialogue, save the info onto todo
+    dialogRef
+      .afterClosed()
+      .subscribe((result: TaskDialogResult|undefined) => {
+        if (!result) {
+          return;
+        }
+        this.todo.push(result.task);
+      });
+    }
+ }
 
-//assign tasks
-// in the todo users can select an item and they can request to contribute to it
+// assign tasks
+// in the todo users can select an item and they can request to contribute to it 
 // if time: manager can assign people to tasks
