@@ -3,9 +3,9 @@ import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
 // import { TaskService } from '../service/task.service';
-import { Task } from '../task/task';
+import  { Task } from "../project/task";
 import { DialogModule } from 'primeng/dialog';
-import { TaskDialogComponent, TaskDialogResult } from '../task-dialog/task-dialog.component';
+import { TaskDialogComponent, TaskDialogResult } from './task-dialog/task-dialog.component';
 
 import { MatDialog } from '@angular/material/dialog';
 
@@ -15,7 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './kanban.component.html',
   styleUrls: ['./kanban.component.scss'],
 })
-  
+
 export class KanbanComponent {
 
   todo: Task[] = [
@@ -60,7 +60,7 @@ export class KanbanComponent {
       }
     });
   }
-  
+
 
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
@@ -103,5 +103,5 @@ export class KanbanComponent {
  }
 
 // assign tasks
-// in the todo users can select an item and they can request to contribute to it 
+// in the todo users can select an item and they can request to contribute to it
 // if time: manager can assign people to tasks
