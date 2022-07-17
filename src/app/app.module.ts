@@ -9,10 +9,12 @@ import { AppComponent } from './app.component';
 import { HomeModule } from "./pages/home/home.module";
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
