@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Task } from './task';
 
 @Component({
   selector: 'app-task',
