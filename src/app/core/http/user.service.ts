@@ -7,7 +7,9 @@ import {Vote} from "../../shared/models/vote";
   providedIn: 'root'
 })
 export class UserService {
-  private url = "http://localhost:4999/users"
+  //private url = "http://localhost:4999/users"
+  private url = "http://34.130.182.2/users"
+
   constructor(private http: HttpClient) { }
 
   getUsers(){
