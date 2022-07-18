@@ -1,0 +1,20 @@
+<br>
+<hr>
+<br>
+
+<div id="search-component">
+    <label for="search-box">Comment Search</label>
+    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+  
+    <ul class="search-result">
+      <!--
+          AsyncPipe to subscribe to Observable automatically
+          Don't need to alter component class
+      -->  
+      <li *ngFor="let comment of comments$ | async" >
+        <a routerLink="/detail/{{comment.id}}">
+          {{comment.name}}
+        </a>
+      </li>
+    </ul>
+  </div>

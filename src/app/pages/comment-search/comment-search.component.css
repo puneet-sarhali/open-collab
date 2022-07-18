@@ -1,0 +1,54 @@
+/**
+https://angular.io/tutorial/toh-pt6
+**/
+
+/* CommentSearch private styles */
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    font-size: large;
+  
+  }
+  input {
+    padding: 1rem;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    display: block;
+  }
+  
+  input:focus {
+    outline: #009669 auto 1px;
+  }
+  
+  li {
+    list-style-type: none;
+  }
+  .search-result li a {
+    border-bottom: 1px solid #789189;
+    border-left: 1px solid #789189;
+    border-right: 1px solid #789189;
+    display: inline-block;
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem;
+    box-sizing: border-box;
+    color: #009669;
+  }
+  
+  .search-result li a:hover {
+    background-color: #009669;
+    color: white;
+  }
+  
+  ul.search-result {
+    margin-top: 0;
+    padding-left: 0;
+  }
+
+  hr {
+    margin-top: 5rem;
+  }

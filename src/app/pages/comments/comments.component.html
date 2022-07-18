@@ -1,1 +1,34 @@
-<p>comments works!</p>
+<br>
+
+<h2>My Comments</h2>
+
+<div>
+  <label for="new-comment">Enter text to create a new comment: </label>
+  <textarea  cols="24" rows="10" maxlength="40" id="new-comment" #commentName></textarea>
+  <!--
+  <label for="new-comment-content">Comment content: </label>
+  <textarea rows="5" cols="80" id="new-comment-content" #commentContent>
+  </textarea>
+  -->
+  <br>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button type="button" class="add-button" (click)="add(commentName.value); commentName.value=''">
+    SAVE NOTE
+  </button>
+</div>
+
+<br>
+<hr>
+<br>
+
+<ul class="comments">
+  <li *ngFor="let comment of comments">
+    <a routerLink="/detail/{{comment.id}}">
+      <span class="badge">{{comment.id}}</span> {{comment.name}}
+    </a>
+    <button type="button" class="delete" title="delete comment" (click)="delete(comment)">x</button>
+  </li>
+</ul>
+
+
+<!--<app-comment-detail [comment]="selectedComment"></app-comment-detail>-->

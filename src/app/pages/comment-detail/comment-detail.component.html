@@ -1,0 +1,22 @@
+<div *ngIf="comment">
+    <h2>Comment {{comment.id}} Details</h2>
+    <div><label>id: </label>{{comment.id}}</div>
+    <br>
+    <div>
+      <label for="comment-name">Comment content: </label>
+      <br>
+      <textarea  cols="24" rows="10" maxlength="40" id="comment-name" [(ngModel)]="comment.name" placeholder="comment name"></textarea>
+    </div>
+    <br>
+    <!--
+    <div>
+      <label>Comment content: </label>{{comment.content}}
+    </div>
+    -->
+  <!-- Function code is in comment-detail.component.ts -->
+  <button type="button" (click)="goBack()">go back</button>
+  <button type="button" (click)="save()">save</button>
+  </div>
+
+
+
