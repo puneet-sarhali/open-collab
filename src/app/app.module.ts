@@ -12,8 +12,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommentsComponent } from './pages/comments/comments.component';
 import { CommentDetailComponent } from './pages/comment-detail/comment-detail.component';
 import { CommentSearchComponent } from './pages/comment-search/comment-search.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './pages/in-memory-data.service';
 
 /*
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -25,7 +28,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     AppComponent,
     CommentsComponent,
     CommentDetailComponent,
-    CommentSearchComponent
+    CommentSearchComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -37,14 +41,12 @@ import { InMemoryDataService } from './in-memory-data.service';
     CoreModule,
     HomeModule,
     
+    ReactiveFormsModule,
 
-    ReactiveFormsModule
-    
-    /*
-    // Remove when using real server
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false })
-    */
+      InMemoryDataService, { dataEncapsulation: false}
+    )
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,56 @@
+/**
+https://angular.io/tutorial/toh-pt6
+**/
+
+/* DashboardComponent's private CSS styles */
+
+h2 {
+  text-align: center;
+}
+
+.comments-menu {
+  padding: 0;
+  margin: auto;
+  max-width: 800px;
+
+  /* flexbox */
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+a {
+  background-color: #009669;
+  border-radius: 2px;
+  padding: 1rem;
+  font-size: 1rem;
+  display: inline-block;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  margin: .5rem auto;
+  text-decoration: none;
+
+  /* flexbox */
+  order: 0;
+  flex: 0 1 auto;
+  align-self: auto;
+}
+
+@media (min-width: 600px) {
+  a {
+    width: 2in;
+    height: 2in;
+  }
+}
+
+a:hover {
+  background-color: #6de6c1;
+}

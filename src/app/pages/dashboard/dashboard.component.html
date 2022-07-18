@@ -1,0 +1,9 @@
+<h2>Featured Comments</h2>
+
+<div class="comments-menu">
+  <a *ngFor="let comment of comments" routerLink="/detail/{{comment.id}}">
+    {{comment.name}}
+  </a>
+</div>
+
+<app-comment-search></app-comment-search>
