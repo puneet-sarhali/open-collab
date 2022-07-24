@@ -3,11 +3,13 @@ import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
 // import { TaskService } from '../service/task.service';
-import  { Task } from "../project/task";
+import { Task } from '../../../shared/models/task'
 import { DialogModule } from 'primeng/dialog';
 import { TaskDialogComponent, TaskDialogResult } from './task-dialog/task-dialog.component';
 
 import { MatDialog } from '@angular/material/dialog';
+
+import { KanbanService } from "../../../core/http/kanban.service";
 
 
 @Component({
@@ -16,19 +18,19 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./kanban.component.scss'],
 })
 
-export class KanbanComponent {
+export class KanbanComponent  implements OnInit{
 
   todo: Task[] = [
-    {
-      id: "5",
-      title: 'Do Something',
-      description: 'This is the description'
-    },
-    {
-      id: "6",
-      title: 'Create a Task',
-      description: 'yay!'
-    }
+    // {
+    //   id: "5",
+    //   title: 'Do Something',
+    //   description: 'This is the description'
+    // },
+    // {
+    //   id: "6",
+    //   title: 'Create a Task',
+    //   description: 'yay!'
+    // }
   ];
 
   inProgress: Task[] = [
@@ -37,7 +39,20 @@ export class KanbanComponent {
   done: Task[] = [
   ];
 
-  constructor(private dialog: MatDialog) {}
+
+  constructor(private dialog: MatDialog, private kanbanService:KanbanService) { }
+  
+  ngOnInit() {
+
+    this.kanbanService
+      .getAllTasks(
+    ).subscribe((task) => {
+      //console.log(task, "res=>");
+      //TODO: make all tasks go in the right categories
+      this.todo = task;
+    });
+    
+  }
 
   editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
     const dialogRef = this.dialog.open(TaskDialogComponent, {
@@ -47,7 +62,7 @@ export class KanbanComponent {
         enableDelete: true,
       },
     });
-    dialogRef.afterClosed().subscribe((result: TaskDialogResult|undefined) => {
+    dialogRef.afterClosed().subscribe((result: TaskDialogResult | undefined) => {
       if (!result) {
         return;
       }
@@ -90,18 +105,41 @@ export class KanbanComponent {
       },
     });
 
-    // on close of dialogue, save the info onto todo
-    dialogRef
-      .afterClosed()
-      .subscribe((result: TaskDialogResult|undefined) => {
-        if (!result) {
-          return;
-        }
-        this.todo.push(result.task);
-      });
-    }
- }
+    
+    // on close of dialogue,  save the info onto todo
+    // dialogRef
+    //   .afterClosed()
+    //   .subscribe((result: TaskDialogResult | undefined) => {
+    //     if (!result) {
+    //       return;
+    //     }
+    //     this.todo.push(result.task);
+    //   });
+  }
+
+  // onSubmit() {
+  //   const taskData = {
+  //     "taskid": -1,
+  //     "title": this.createTaskForm.value.
+  //   }
+  // }
+}
+
+//taskid, title, content, category, assignedto, projectid
 
 // assign tasks
 // in the todo users can select an item and they can request to contribute to it
 // if time: manager can assign people to tasks
+
+// table with project id, title, description, in category, assigned to
+
+// obtain the project id from here, then go into back end and process the info
+// back end with express in routes/kanban.js
+// add tables in the database.sql
+
+// run with npm start for backend
+// run front with ng serve
+
+// view db in postman
+// http://localhost:4999/projects?sort_by=score
+

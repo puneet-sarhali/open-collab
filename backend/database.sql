@@ -1,3 +1,9 @@
+CREATE TABLE users(
+    id varchar(255) PRIMARY KEY,
+    name varchar(255),
+    email varchar(255)
+);
+
 CREATE TABLE project(
     projectid SERIAL PRIMARY KEY,
     projectname varchar(255),
@@ -10,13 +16,6 @@ CREATE TABLE project(
     FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE
 );
 
-CREATE TABLE users(
-    id varchar(255) PRIMARY KEY,
-    name varchar(255),
-    email varchar(255)
-);
-
-
 -- a user can upvote or down vote a project: 1 for upvote 0 for downvote
 CREATE TABLE vote(
     userid varchar(255),
@@ -25,6 +24,23 @@ CREATE TABLE vote(
     PRIMARY KEY (userid, projectid),
     FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (projectid) REFERENCES project(projectid) ON DELETE CASCADE
+);
+
+
+-- table for the tasks in the kanban boards
+CREATE TABLE task(
+    taskid SERIAL PRIMARY KEY,
+    title varchar(40),
+    content varchar(255),
+    category integer NOT NULL, -- 0 = todo, 1 = in progress, 2 = complete
+    assignedto varchar(255),
+    projectid integer, --NOT NULL, --TODO: FIGURE OUT HOW TO GET THE PROJECT ID
+    FOREIGN KEY (assignedto) REFERENCES users(id)
+        ON UPDATE CASCADE
+        ON DELETE SET NULL,
+    FOREIGN KEY (projectid) REFERENCES project
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 );
 
 
@@ -58,3 +74,8 @@ INSERT INTO project (projectname, description, score, upvotes, downvotes, userid
     ('Foggy Brains', 'An app that randomly creates potential conversation topics so that you never need to worry about those awkward silences again. It can even be customized and filtered by topic, level, depth, etc.', 7, 9, 2, 'qrSq0rddWUVFRE0DnriEtZA01u42', '2021-04-26T14:59:32.239Z'),
     ('This is a Dumb Idea', 'Create an application that can calculate how much salary someone should be making depending on their skill set, experience, currency, and other factors like location, etc.', 111, 111, 0, 'jcVx46kuciXThBc45ni6EjInwsz1', '2021-03-06T03:15:17.748Z'),
     ('Playlist Gen', 'An app that can randomly generate a list of songs for your playlist. It could be able to take into account various filters such as your likes, the year, genre, how long you plan on listening to a song, etc. Then it creates a playlist based on those parameters.', 100, 200, 100, 'ZtYT7z1bSfMzTlOPP29mVj9BvQs2', '2022-02-18T16:32:29.183Z');
+
+
+INSERT INTO task (title, content, category) VALUES
+    ('Build the DB', 'this needs to be done by tomorrow!', '1'),
+    ('front end mock up', 'this needs to be done by tomorrow!', '1');

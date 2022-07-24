@@ -1,20 +1,30 @@
-<mat-form-field class="field">
-  <mat-label>Title</mat-label>
-  <input matInput cdkFocusInitial [(ngModel)]="data.task.title" />
-</mat-form-field>
 
-<mat-form-field class="field">
-  <mat-label>Description</mat-label>
-  <textarea matInput [(ngModel)]="data.task.description"></textarea>
-</mat-form-field>
+<form [formGroup]="taskForm">
+  <mat-form-field class="field">
+    <mat-label>Title</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.task.title" formControlName="title" />
+  </mat-form-field>
 
-<div mat-dialog-actions>
-  <button
-    mat-button
-    *ngIf="data.enableDelete"
-    aria-label="Delete"
-    [mat-dialog-close]="{ task: data.task, delete: true }">Delete
-  </button>
-  <button mat-button [mat-dialog-close]="{ task: data.task }" aria-label="Delete">OK</button>
-  <button mat-button (click)="cancel()" aria-label="Cancel">Cancel</button>
-</div>
+  <mat-form-field class="field">
+    <mat-label>Content</mat-label>
+    <textarea matInput [(ngModel)]="data.task.content" formControlName="content"></textarea>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+
+    <!-- TODO: error message for invalid input of title -->
+    <!-- <div *ngIf="errormsg" class="alert alert-danger" role="alert">
+      {{errormsg}}
+    </div> -->
+
+    <!-- buttons -->
+    <button
+      mat-button
+      *ngIf="data.enableDelete"
+      aria-label="Delete"
+      [mat-dialog-close]="{ task: data.task, delete: true }">Delete
+    </button>
+    <button mat-button (click)="taskSubmit()"[mat-dialog-close]="{ task: data.task }" aria-label="Ok">OK</button>
+    <button mat-button (click)="cancel()" aria-label="Cancel">Cancel</button>
+  </div>
+</form>

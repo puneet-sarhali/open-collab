@@ -17,6 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { MatToolbarModule } from "@angular/material/toolbar";
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    FormsModule,
+    ReactiveFormsModule
 
   ]
 })
