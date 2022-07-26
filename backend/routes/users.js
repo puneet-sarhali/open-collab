@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const pool = require("../db");
+const { checkAuth } = require('../auth');
 
 
 //create a user
@@ -25,7 +26,7 @@ router.get("/", async (req, res) => {
 })
 
 //for votes
-router.post("/votes", async (req,res) => {
+router.post("/votes", checkAuth,  async (req,res) => {
     try {
         const { userid, projectid, votevalue } = req.body;
         const rows = await pool.query("INSERT INTO vote (userid, projectid, votevalue) VALUES ($1, $2, $3) RETURNING *", [userid, projectid, votevalue]);

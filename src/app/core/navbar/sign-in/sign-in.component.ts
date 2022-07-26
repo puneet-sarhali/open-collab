@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 
@@ -27,6 +27,7 @@ export class SignInComponent implements OnInit {
     }).catch((err)=>{
       console.log("unable to sign in User: error "+ err)
     })
+    console.log("submitted");
   }
 
   showDialog(){

@@ -11,8 +11,13 @@
         <div>
           <div class="header">
             <h3>{{ project.projectname | uppercase}} </h3>
-            <span> &#183; posted by {{project.name}}</span>
+            <span> &#183; by {{project.name}}</span>
             <span> &#183; {{project.createdat | timeSince}} ago</span>
+            <span>
+              <p-chip *ngIf="project.tag1"> #{{project.tag1}}</p-chip>
+              <p-chip *ngIf="project.tag2"> #{{project.tag2}}</p-chip>
+              <p-chip *ngIf="project.tag3"> #{{project.tag3}}</p-chip>
+            </span>
           </div>
           <div class="body">
             <p>{{ project.description }}</p>
@@ -20,16 +25,29 @@
         </div>
       </a>
 <!--      This template if called from individual project-->
-      <ng-template #projectView>
-        <div>
-          <div class="header">
-            <h3>{{ project.projectname | uppercase}} </h3>
-            <span> &#183; Created by {{project.name}}</span>
-            <span> &#183; {{project.createdat | timeSince}} ago</span>
-          </div>
-          <div class="body">
-            <p>{{ project.description }}</p>
-          </div>
+      <ng-template #projectView class="info">
+        <div class="container">
+              <div>
+                <div class="header">
+                  <h3>{{ project.projectname | uppercase}} </h3>
+                </div>
+                <div class="body">
+                  <p>{{ project.description }}</p>
+                </div>
+              </div>
+              <p-divider layout="vertical"></p-divider>
+              <div class="right-col">
+                <span>Created by: {{project.name}} </span>
+                <span>{{project.createdat | timeSince}} ago</span>
+                <span>
+                    <span>Tags:</span>
+                    <p-chip *ngIf="project.tag1"> #{{project.tag1}}</p-chip>
+                    <p-chip *ngIf="project.tag2"> #{{project.tag2}}</p-chip>
+                    <p-chip *ngIf="project.tag3"> #{{project.tag3}}</p-chip>
+                </span>
+                <a pButton *ngIf="project.github" href="{{project.github}}" target="_blank" icon="pi pi-github" label="Github"></a>
+                <button *ngIf="isMyProject" pButton label="Delete"></button>
+              </div>
         </div>
       </ng-template>
     </div>

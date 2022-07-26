@@ -49,6 +49,7 @@ a{
 
   h3{
     margin: 0;
+    padding: 0;
   }
   p-tag{
     padding: 1rem;
@@ -74,3 +75,24 @@ a{
   color: orange;
 }
 
+.container{
+  display: flex;
+  width: 70%;
+  justify-content: space-between;
+}
+
+.right-col{
+  display: flex;
+  min-width: 10rem;
+  flex-direction: column;
+  h3{
+    margin: 0;
+  }
+  span{
+    margin-bottom: 1rem;
+  }
+  a{
+    color: white;
+    max-width: 8rem;
+  }
+}

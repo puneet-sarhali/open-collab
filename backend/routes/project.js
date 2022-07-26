@@ -6,10 +6,10 @@ const pool = require("../db");
 //create a project
 router.post("/", async (req, res) => {
     try {
-        const { projectname, description, upvotes, downvotes, score, userid, createdat } = req.body;
+        const { projectname, description, upvotes, downvotes, score, userid, createdat, tag1, tag2, tag3, github } = req.body;
         const newRow = await
-        pool.query("INSERT INTO project (projectName, description, upvotes, downvotes, score, userid, createdat) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-                             [projectname, description, upvotes, downvotes, score, userid, createdat]);
+        pool.query("INSERT INTO project (projectName, description, upvotes, downvotes, score, userid, createdat, tag1, tag2, tag3, github) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+                             [projectname, description, upvotes, downvotes, score, userid, createdat, tag1, tag2, tag3, github]);
         res.json(newRow.rows[0]);
     } catch (err) {
         console.error(err.message);

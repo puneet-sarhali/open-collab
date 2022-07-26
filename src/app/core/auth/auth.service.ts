@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, onAuthStateChanged, updateProfile, signInWithEmailAndPassword, createUserWithEmailAndPassword, authState, signOut } from '@angular/fire/auth';
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +8,14 @@ import { Auth, onAuthStateChanged, updateProfile, signInWithEmailAndPassword, cr
 export class AuthService {
   _uid!: string | null;
   _state!: boolean;
+
+
+  unauthorized$ = new BehaviorSubject(false);
+
+
   constructor(private auth: Auth) {
     onAuthStateChanged(auth, (user) =>{
-      console.log("auth state changed");
+      user?.getIdToken().then((res) => localStorage.setItem("authToken", res));
       if(user){
         this._uid = user.uid;
         this._state = true;
@@ -18,6 +24,10 @@ export class AuthService {
         this._uid = null;
       }
     })
+  }
+
+  unAuthReq(){
+    this.unauthorized$.next(true);
   }
 
   createUser(email: string, password: string){

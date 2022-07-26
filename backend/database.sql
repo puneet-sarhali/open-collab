@@ -7,6 +7,10 @@ CREATE TABLE project(
     downvotes integer,
     userid varchar(255),
     createdat timestamptz,
+    tag1: varchar(50),
+    tag2: varchar(50),
+    tag3: varchar(50),
+    github: varchar(255),
     FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE
 );
 

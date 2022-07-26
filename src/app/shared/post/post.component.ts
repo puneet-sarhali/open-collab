@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import { Project } from 'src/app/shared/models/project';
 import {Vote} from "../models/vote";
 import {Observable} from "rxjs";
@@ -19,11 +19,11 @@ enum VoteVal{
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit{
   @Input() project!: Project;
   @Input()  currentUserVotes!: Observable<Vote[]>;
   @Input() fromProject: boolean = false;
-
+  isMyProject: Boolean = false;
   voteValue: VoteVal = VoteVal.noVote;
   constructor(private ps: ProjectService, private userService: UserService, private auth: AuthService) {
 
@@ -128,4 +128,6 @@ export class PostComponent implements OnInit {
       )
     }
   }
+
+
 }
