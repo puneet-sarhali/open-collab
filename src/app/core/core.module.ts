@@ -15,6 +15,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import {PasswordModule} from 'primeng/password';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {AuthTokenInterceptor} from "./interceptors/auth-token.interceptor";
+import { ToastComponent } from './components/toast/toast.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {AuthTokenInterceptor} from "./interceptors/auth-token.interceptor";
     ProfileComponent,
     SignInComponent,
     PageNotFoundComponent,
+    ToastComponent,
   ],
   imports: [
     CommonModule,
@@ -40,8 +42,9 @@ import {AuthTokenInterceptor} from "./interceptors/auth-token.interceptor";
       multi: true
     }
   ],
-  exports: [
-    NavbarComponent,
-  ]
+    exports: [
+        NavbarComponent,
+        ToastComponent,
+    ]
 })
 export class CoreModule { }

@@ -20,6 +20,9 @@ export class FilterPipe implements PipeTransform {
       return (
         it.projectname!.toLocaleLowerCase().includes(searchText) ||
         it.description!.toLocaleLowerCase().includes(searchText) ||
+        (it.tag1) && it.tag1.toLocaleLowerCase().includes(searchText) ||
+        (it.tag2) && it.tag2.toLocaleLowerCase().includes(searchText) ||
+        (it.tag3) && it.tag3.toLocaleLowerCase().includes(searchText) ||
         it.name!.toLocaleLowerCase().includes(searchText)
       );
     });

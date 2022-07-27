@@ -4,6 +4,7 @@ import {ProjectService} from "../../../core/http/project.service";
 import {Project} from "../../../shared/models/project";
 import {AuthService} from "../../../core/auth/auth.service";
 import {MenuItem} from 'primeng/api';
+import {ToastService} from "../../../core/services/toast.service";
 
 @Component({
   selector: 'app-create-post',
@@ -21,7 +22,7 @@ export class CreatePostComponent implements OnInit {
     github: ['']
   });
 
-  constructor(private fb: FormBuilder, private ps: ProjectService, private auth: AuthService) { }
+  constructor(private fb: FormBuilder, private ps: ProjectService, private auth: AuthService, private toastService: ToastService) { }
 
   ngOnInit(): void {
   }
@@ -43,17 +44,15 @@ export class CreatePostComponent implements OnInit {
       "github": this.createPostForm.value.github != null ? this.createPostForm.value.github : undefined,
     }
 
-    console.log(projectData)
-
     this.ps.createProject(projectData).subscribe({
         next: (project) => {
           this.newProject.emit(projectData)
+          this.toastService.projectCreated()
           this.display = false;
         },
-        error: (err)=> console.log(err)
+        error: err => this.toastService.genericError()
       }
     )
-    console.log(this.createPostForm.value);
 
 
   }

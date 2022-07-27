@@ -7,11 +7,12 @@ import {
 } from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
 import {AuthService} from "../auth/auth.service";
+import {ToastService} from "../services/toast.service";
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService) {}
+  constructor(private toastService: ToastService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem("authToken");
@@ -23,7 +24,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     return next.handle(tokenReq).pipe(
       catchError((err) => {
         if(err.status == 403){
-          this.auth.unAuthReq()
+          this.toastService.unAuthReq()
         }
         return throwError(err)
       }

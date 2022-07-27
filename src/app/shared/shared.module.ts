@@ -24,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from "@angular/material/toolbar";
+import { TableModule } from "primeng/table";
 
 
 import { FormsModule ,ReactiveFormsModule } from "@angular/forms";
@@ -56,7 +57,10 @@ import {TimeSincePipe} from "./pipes/time-since.pipe";
     FormsModule,
     TagModule,
     ChipModule,
-    DividerModule
+    DividerModule,
+    DialogModule,
+    ChipsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CardModule,
@@ -85,7 +89,8 @@ import {TimeSincePipe} from "./pipes/time-since.pipe";
     MatDialogModule,
     MatInputModule,
     MatToolbarModule,
-    ToastModule
+    ToastModule,
+    TableModule
 
   ]
 })

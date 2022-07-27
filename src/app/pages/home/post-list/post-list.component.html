@@ -1,5 +1,3 @@
-<!--<p-dropdown [options]="sortOptions" [(ngModel)]="selectedOption"  (onChange)="onDropdownChange()"></p-dropdown>-->
-
 <p-toolbar>
   <div class="p-toolbar-group-left">
     <p-selectButton (onChange)="onSortChange()" [options]="sortOptions" [(ngModel)]="sortValue"  optionLabel="label" optionValue="value">
@@ -24,7 +22,9 @@
   <div>
     <app-post *ngFor="let data of inputData | filter: searchValue"
               [project]="data"
-              [currentUserVotes]="getVotes()">
+              [currentUserVotes]="getVotes()"
+              (tagSearchValue)="tagClicked($event)"
+    >
     </app-post>
   </div>
   <app-my-projects [myProjects]="myProjects"></app-my-projects>

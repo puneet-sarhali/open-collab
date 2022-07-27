@@ -7,6 +7,7 @@ import {CreatePostComponent} from "./pages/home/create-post/create-post.componen
 
 
 const routes: Routes = [
+  { path: 'user/:id', loadChildren: ()=> import('./pages/profile/profile.module').then(m=> m.ProfileModule)},
   { path: 'project/:id', loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectModule)},
   { path: 'posts',  component: PostListComponent, pathMatch: 'full' },
   { path: '', redirectTo:'/posts', pathMatch: 'full' },

@@ -24,6 +24,7 @@ export class SignInComponent implements OnInit {
   onSubmit(){
     this.auth.signIn(this.signinForm.value.email, this.signinForm.value.password).then((res)=>{
       console.log(`${res.user.email} : result of sign in user`)
+      res.user.getIdToken().then((res) => localStorage.setItem("authToken", res));
     }).catch((err)=>{
       console.log("unable to sign in User: error "+ err)
     })

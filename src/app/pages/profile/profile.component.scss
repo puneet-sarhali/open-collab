@@ -1,0 +1,24 @@
+h1{
+  margin: 2rem;
+  text-align: center;
+  font-weight: bolder;
+}
+
+h2{
+  font-weight: normal;
+  color: grey;
+}
+
+p-table{
+  button{
+    border: none;
+    background-color: white;
+    color: #4d4d4d;
+    font-size: 1rem;
+    &:hover{
+      color: blue;
+      text-decoration: underline;
+
+    }
+  }
+}

@@ -55,7 +55,7 @@ router.route("/:id")
         } catch (err) {
             res.send(err.message);
         }
-    }).put(async (req, res) => {
+    }).put(checkAuth, async (req, res) => {
         try {
             const { id , name, email } = req.body;
             const newRow = await pool.query
@@ -65,7 +65,7 @@ router.route("/:id")
         } catch (err) {
             res.send(err.message);
         }
-    }).delete(async (req, res) => {
+    }).delete(checkAuth, async (req, res) => {
         try {
             const { id } = req.params;
             const newRow = await pool.query("DELETE FROM users WHERE id = $1", [id])
@@ -97,7 +97,7 @@ router.route("/votes/:uid/:pid")
             res.send(error.message);
         }
     })
-    .put(async (req,res) => {
+    .put(checkAuth, async (req,res) => {
         try {
             const { uid, pid } = req.params;
             const { userid, projectid, votevalue } = req.body;
@@ -116,7 +116,7 @@ router.route("/votes/:uid/:pid")
             res.send(error.message);
         }
     })
-router.delete("/votes/:uid/:pid/:votevalue", async (req,res) => {
+router.delete("/votes/:uid/:pid/:votevalue", checkAuth, async (req,res) => {
         try {
             const { uid, pid, votevalue} = req.params;
 

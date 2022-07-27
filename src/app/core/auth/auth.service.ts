@@ -10,9 +10,6 @@ export class AuthService {
   _state!: boolean;
 
 
-  unauthorized$ = new BehaviorSubject(false);
-
-
   constructor(private auth: Auth) {
     onAuthStateChanged(auth, (user) =>{
       user?.getIdToken().then((res) => localStorage.setItem("authToken", res));
@@ -26,9 +23,7 @@ export class AuthService {
     })
   }
 
-  unAuthReq(){
-    this.unauthorized$.next(true);
-  }
+
 
   createUser(email: string, password: string){
     return createUserWithEmailAndPassword(this.auth, email, password);

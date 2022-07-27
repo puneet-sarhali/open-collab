@@ -2,6 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Project } from "../../shared/models/project";
 
+interface patchedProject{
+  projectname: string,
+  description: string,
+  tag1: string | undefined,
+  tag2: string | undefined,
+  tag3: string | undefined,
+  github: string |  undefined
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,6 +35,14 @@ export class ProjectService {
 
   getMyProjects(userid: string){
     return this.http.get<Project[]>(this.url + `/users/${userid}`);
+  }
+
+  deleteProject(projectId: number){
+    return this.http.delete(this.url + `/${projectId}`);
+  }
+
+  patchProject(projectId: number, data: patchedProject){
+    return this.http.patch<patchedProject>(this.url + `/${projectId}`, data)
   }
 
 }

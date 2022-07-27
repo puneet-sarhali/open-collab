@@ -45,6 +45,24 @@ a{
     margin-left: 0.8rem;
     font-size: smaller;
     color: grey;
+    button{
+      border: none;
+      background-color: white;
+      z-index: 10;
+      &:hover{
+        text-decoration: underline;
+        color: blue;
+      }
+    }
+  }
+  button{
+    border: none;
+    background-color: white;
+    &:hover{
+      z-index: 10;
+      text-decoration: underline;
+      color: blue;
+    }
   }
 
   h3{
@@ -54,6 +72,7 @@ a{
   p-tag{
     padding: 1rem;
   }
+
 }
 
 .body {
@@ -77,14 +96,17 @@ a{
 
 .container{
   display: flex;
-  width: 70%;
+  width: 100%;
   justify-content: space-between;
 }
 
 .right-col{
   display: flex;
-  min-width: 10rem;
+  min-width: 30%;
   flex-direction: column;
+  p-chip{
+    margin-left: 0.8rem;
+  }
   h3{
     margin: 0;
   }
@@ -94,5 +116,28 @@ a{
   a{
     color: white;
     max-width: 8rem;
+    margin-bottom: 1rem;
+  }
+  button{
+    margin-right: 0.5rem;
   }
 }
+
+form > span {
+  margin-bottom: 2rem;
+}
+form > span:first-child {
+  margin-top: 2rem;
+}
+
+.chips{
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
+
+.hide{
+  display: none;
+}
+
+
