@@ -5,6 +5,8 @@ import {Project} from "../../shared/models/project";
 import {ProjectService} from "../../core/http/project.service";
 import {UserService} from "../../core/http/user.service";
 import {AuthService} from "../../core/auth/auth.service";
+import { KanbanService } from 'src/app/core/http/kanban.service';
+import { Task } from "../../shared/models/task";
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +16,15 @@ import {AuthService} from "../../core/auth/auth.service";
 export class ProfileComponent implements OnInit {
 
   data!: Project[];
-  constructor(private route: ActivatedRoute, private projectService: ProjectService,  private userService: UserService, private auth: AuthService) { }
+  tasks: Task[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private projectService: ProjectService,
+    private userService: UserService,
+    private auth: AuthService,
+    private kanbanService: KanbanService
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
@@ -24,6 +34,7 @@ export class ProfileComponent implements OnInit {
     ).subscribe((project) => {
       this.data = project;
     })
+    this.getTasks();
   }
 
   //votes made by current user
@@ -31,6 +42,18 @@ export class ProfileComponent implements OnInit {
     return this.auth.userInfo().pipe(
       switchMap((user) => this.userService.getVotes(user?.uid!))
     )
+  }
+
+  getTasks() {
+    this.kanbanService.getAllTasks().subscribe((task) => {
+      let userID = this.route.snapshot.paramMap.get('id');
+      this.tasks = task;
+      this.tasks = this.tasks.filter(t =>
+        t.assignedto === userID
+      );
+
+      console.log("userid", userID);
+    })
   }
 
 }

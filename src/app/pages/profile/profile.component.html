@@ -29,7 +29,11 @@
   </div>
 </div>
 
-<h2>Task Requests</h2>
 <h2>Assigned Tasks</h2>
+<p-card *ngFor="let task of tasks">
+  <h3>{{ task.title }}</h3>
+  <p>{{ task.content }}</p>
+  <p>Project ID: {{ task.projectid }}</p>
+</p-card>
 
 
