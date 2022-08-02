@@ -18,7 +18,7 @@ export class ToastComponent implements OnInit {
     this.toastService.projectCreated$
       .subscribe(value => value && this.toast("success", "Created", "Project Created"));
     this.toastService.genericError$
-      .subscribe(value => value && this.toast("error", "Unknown", "Unknown Error! Make sure your signed in."))
+      .subscribe(value => value && this.toast("error", "Error", value))
     this.toastService.genericSuccess$
       .subscribe(value => value && this.toast("success", "Success", ""))
   }

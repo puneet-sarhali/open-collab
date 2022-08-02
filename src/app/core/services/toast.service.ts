@@ -8,7 +8,7 @@ export class ToastService {
   projectCreated$ = new BehaviorSubject(false);
   projectDeleted$ = new BehaviorSubject(false);
   unauthorized$ = new BehaviorSubject(false);
-  genericError$ = new BehaviorSubject(false);
+  genericError$ = new BehaviorSubject("");
   genericSuccess$ = new BehaviorSubject(false);
   constructor() { }
 
@@ -21,8 +21,8 @@ export class ToastService {
   unAuthReq(){
     this.unauthorized$.next(true);
   }
-  genericError(){
-    this.genericError$.next(true);
+  genericError(message: string){
+    this.genericError$.next(message);
   }
   genericSuccess(){
     this.genericSuccess$.next(true);

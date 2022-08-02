@@ -14,10 +14,12 @@ export class CommentComponent implements OnInit {
   @Output() deleteComment = new EventEmitter<any>();
   isAdmin$!: BehaviorSubject<boolean>;
   uid!: BehaviorSubject<string>;
+  isLoggedIn$!: BehaviorSubject<boolean>;
 
   constructor(private auth: AuthService) {
     this.isAdmin$ = this.auth.isAdmin$;
     this.uid = this.auth.userId$;
+    this.isLoggedIn$ = this.auth.isLoggedIn$;
   }
 
   ngOnInit(): void {

@@ -50,7 +50,7 @@ export class CreatePostComponent implements OnInit {
           this.toastService.projectCreated()
           this.display = false;
         },
-        error: err => this.toastService.genericError()
+        error: err => this.toastService.genericError("Error while publishing new project.")
       }
     )
 

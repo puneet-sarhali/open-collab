@@ -34,8 +34,8 @@ CREATE TABLE vote(
 
 CREATE TABLE comment(
     comment_id SERIAL PRIMARY KEY,
-    project_id integer,
-    author_uid varchar(255),
+    project_id integer NOT NULL,
+    author_uid varchar(255) NOT NULL,
     content varchar(4000),
     posted_on timestamptz,
     like_count integer,

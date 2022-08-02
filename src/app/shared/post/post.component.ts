@@ -53,16 +53,22 @@ export class PostComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.currentUserVotes.subscribe((votes) => {
-      votes.forEach((vote) => {
-        if (vote.projectid === this.project.projectid) {
-          if (vote.votevalue) {
-            this.voteValue = VoteVal.upVote;
-          } else {
-            this.voteValue = VoteVal.downVote;
-          }
-        }
-      })
+    this.isLoggedIn$.subscribe(res =>{
+      if(res){
+        this.currentUserVotes.subscribe((votes) => {
+          votes.forEach((vote) => {
+            if (vote.projectid === this.project.projectid) {
+              if (vote.votevalue) {
+                this.voteValue = VoteVal.upVote;
+              } else {
+                this.voteValue = VoteVal.downVote;
+              }
+            }
+          })
+        })
+      }else{
+        this.voteValue = VoteVal.noVote;
+      }
     })
   }
 
@@ -188,7 +194,7 @@ export class PostComponent implements OnInit{
         this.project.tag3 = data.tag3
         this.project.github = data.github
       },
-      error: err => this.toastService.genericError()
+      error: err => this.toastService.genericError("Update Failed.")
     })
 
     this.hideEdit = true;

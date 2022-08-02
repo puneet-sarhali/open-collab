@@ -42,11 +42,12 @@ export class CommentsComponent implements OnInit {
           content: this.formContent
         }
         this.commentService.postComment(data).subscribe({
-          next: () => {
+          next: (res) => {
             this.toast.genericSuccess();
             this.comments.push(data);
+            console.log(res);
           },
-          error: () => this.toast.genericError()
+          error: () => this.toast.genericError("Comment Post Failed.")
         })
       })
 
@@ -64,7 +65,7 @@ export class CommentsComponent implements OnInit {
             return comment.comment_id != comment_id
           })
         },
-        error: () => this.toast.genericError()
+        error: () => this.toast.genericError("Couldn't delete comment.")
       })
     })
   }
