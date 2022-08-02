@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validator, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import {ToastService} from "../../services/toast.service";
 
@@ -13,8 +13,8 @@ export class SignInComponent implements OnInit {
   display: boolean = false;
 
   signinForm = this.fb.group({
-    email: [''],
-    password: [''],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
   });
 
   constructor(private fb: FormBuilder, private auth: AuthService, private toast: ToastService) { }

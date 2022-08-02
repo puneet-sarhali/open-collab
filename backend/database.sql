@@ -6,12 +6,12 @@ CREATE TABLE users(
 
 CREATE TABLE project(
     projectid SERIAL PRIMARY KEY,
-    projectname varchar(255),
-    description varchar(4000),
+    projectname varchar(255) NOT NULL,
+    description varchar(4000) NOT NULL,
     score integer,
     upvotes integer,
     downvotes integer,
-    userid varchar(255),
+    userid varchar(255) NOT NULL,
     createdat timestamptz,
     tag1: varchar(50),
     tag2: varchar(50),

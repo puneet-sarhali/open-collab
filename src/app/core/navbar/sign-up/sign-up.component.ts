@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validator, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import {UserService} from "../../http/user.service";
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,13 +14,16 @@ export class SignUpComponent implements OnInit {
   display: boolean = false;
 
   signupForm = this.fb.group({
-    name: [''],
-    email: [''],
-    password: [''],
-    confirmPassword: ['']
+    name: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+    confirmPassword: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private userService: UserService) { }
+  constructor(private fb: FormBuilder, 
+              private auth: AuthService, 
+              private userService: UserService,
+              private toast: ToastService) { }
 
   ngOnInit(): void {
   }
@@ -34,7 +38,7 @@ export class SignUpComponent implements OnInit {
           }).subscribe((res) => console.log(res))
         })
     }).catch((err)=>{
-      console.log("unable to create User: error "+ err)
+      this.toast.genericError("Unable to sign up, try again.")
     })
   }
 
