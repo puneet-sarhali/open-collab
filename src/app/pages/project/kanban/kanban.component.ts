@@ -36,9 +36,11 @@ export class KanbanComponent implements OnInit {
   }
 
   fetchData(): void {
+    console.log("got here");
     this.kanbanService
       .getAllTasks(
     ).subscribe((task) => {
+      console.log(task, "ALL TASK");
       this.projID = this.route.snapshot.paramMap.get('id');
 
       this.tasks = task;
@@ -91,8 +93,8 @@ export class KanbanComponent implements OnInit {
 
       if (t.category !== currCategory) {
         // updating the moved task
-        this.kanbanService.updateTask({ category: currCategory }, t.taskid).subscribe(res => {
-          console.log("res updated =>", res);
+        this.kanbanService.updateTask({ category: currCategory, assignedto: t.assignedto }, t.taskid).subscribe(res => {
+          // console.log("res updated =>", res);
         });
       }
     }

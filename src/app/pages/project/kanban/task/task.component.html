@@ -3,8 +3,20 @@
     <p> {{ task.content }}</p>
 
     
+    <p-dropdown 
+        [options]="users" 
+        [filter]="true"
+        [(ngModel)]="assignedUser"
+        optionLabel="name" 
+        placeholder="change assignee"
+        (onChange)="updateTask(task)">
+    </p-dropdown>
+
+    <p>Assigned to: {{ task.assignedto }}</p>
+    <p>Selected user: {{ assignedUser?.name }}</p>
 
     <button mat-flat-button color="warn" (click)="deleteTask(task.taskid)">Delete</button>
 </mat-card>
 
-<!-- this was deleted from mat-card for EDITING: (dblclick)="edit.emit(task)" -->
+
+<!-- [(ngModel)]="assignedUser"  -->

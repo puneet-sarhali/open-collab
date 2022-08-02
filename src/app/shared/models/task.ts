@@ -7,7 +7,8 @@ export interface Task {
     title: string,
     content: string,
     category: number,
-    // assignedto: User,
-    projectid: string
+    assignedto: string,
+    projectid: string,
+    name?: string
 }
 
