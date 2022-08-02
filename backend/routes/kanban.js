@@ -1,18 +1,17 @@
 const express = require("express");
+var cors = require("cors");
 const router = express.Router();
 const pool = require("../db");
-
-//router.use(express.json());
 
 // create a task
 router.post("/", async (req, res) => {
   try {
-    const { taskid, title, content, category } = req.body;
+    const { taskid, title, content, category, projectid } = req.body;
 
     const newTask = await pool.query(
-      //TODO: ADD BACK THE projectid and the assignedto
-      "INSERT INTO task (taskid, title, content, category) VALUES ($1, $2, $3, $4) RETURNING *",
-      [taskid, title, content, category]
+      //TODO: ADD BACK assignedto
+      "INSERT INTO task (taskid, title, content, category, projectid) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [taskid, title, content, category, projectid]
     );
 
     res.json(newTask.rows[0]);
@@ -51,6 +50,21 @@ router.delete("/:taskid", async (req, res) => {
       taskid,
     ]);
     res.json(deleteTask.rows[0]);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+// update a task's Category !
+
+router.put("/:taskid", async (req, res) => {
+  try {
+    let id = req.params.taskid;
+    let category = req.body.category;
+
+    const updateCat = await pool.query(
+      `UPDATE task SET category = ${category} WHERE taskid = ${id}`
+    );
   } catch (error) {
     console.error(error.message);
   }

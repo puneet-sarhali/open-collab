@@ -34,7 +34,7 @@ CREATE TABLE task(
     content varchar(255),
     category integer NOT NULL, -- 0 = todo, 1 = in progress, 2 = complete
     assignedto varchar(255),
-    projectid integer, --NOT NULL, --TODO: FIGURE OUT HOW TO GET THE PROJECT ID
+    projectid integer NOT NULL,
     FOREIGN KEY (assignedto) REFERENCES users(id)
         ON UPDATE CASCADE
         ON DELETE SET NULL,
@@ -76,6 +76,7 @@ INSERT INTO project (projectname, description, score, upvotes, downvotes, userid
     ('Playlist Gen', 'An app that can randomly generate a list of songs for your playlist. It could be able to take into account various filters such as your likes, the year, genre, how long you plan on listening to a song, etc. Then it creates a playlist based on those parameters.', 100, 200, 100, 'ZtYT7z1bSfMzTlOPP29mVj9BvQs2', '2022-02-18T16:32:29.183Z');
 
 
-INSERT INTO task (title, content, category) VALUES
-    ('Build the DB', 'this needs to be done by tomorrow!', '1'),
-    ('front end mock up', 'this needs to be done by tomorrow!', '1');
+INSERT INTO task (title, content, category, projectid) VALUES
+    ('Build the DB', 'this needs to be done by tomorrow!', '0', '1'),
+    ('front end mock up', 'this needs to be done by tomorrow!', '1', '1'),
+    ('new task', 'this needs to be done by tomorrow!', '2', '1');

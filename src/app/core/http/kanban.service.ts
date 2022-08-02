@@ -16,7 +16,7 @@ export class KanbanService{
     return this.http.get<Task[]>(this.url);
   }
 
-  createTask(task: Task){
+  createTask(task: Task) {
     return this.http.post<Task[]>(this.url, task);
   } 
 
@@ -28,4 +28,8 @@ export class KanbanService{
     return this.http.delete<Task>(this.url + `/${taskid}`);
   }
 
+  //only for updating the category
+  updateTask(data: any, taskid: number) {
+    return this.http.put<Task>(this.url + `/${taskid}`, data);
+  }
 }

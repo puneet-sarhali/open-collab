@@ -1,4 +1,4 @@
-import { Project } from './project';
+// import { Project } from './project';
 import { User } from './user';
 
 
@@ -8,6 +8,6 @@ export interface Task {
     content: string,
     category: number,
     // assignedto: User,
-    // projectid: Project
+    projectid: string
 }
 

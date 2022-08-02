@@ -1,9 +1,11 @@
+
+
 <mat-toolbar>
     <h1>Kanban Board</h1>
-    <p-button (click)="newTask()" mat-button>+</p-button>
+    <p-button (click)="newTask()"  mat-button>+</p-button>
 </mat-toolbar> 
 
-<!-- CATEGORIES -->
+<!-- CATEGORIEs -->
 
 <div class="container-wrapper">
   <div class="container">
@@ -18,7 +20,9 @@
       (cdkDropListDropped)="drop($event)"
       class="list">
       <p class="empty-label" *ngIf="todo.length === 0">Empty list</p>
-      <app-task (edit)="editTask('todo', $event)" *ngFor="let task of todo" cdkDrag [task]="task"></app-task>
+      <!-- <app-task (edit)="editTask('todo', $event)" *ngFor="let task of todo" cdkDrag [task]="task"></app-task> -->
+      <app-task (deleteEvent)="recieveDelete()" *ngFor="let task of todo" cdkDrag [task]="task"></app-task>
+      
     </mat-card>
   </div>
 
@@ -34,7 +38,8 @@
       (cdkDropListDropped)="drop($event)"
       class="list">
       <p class="empty-label" *ngIf="inProgress.length === 0">Empty list</p>
-      <app-task (edit)="editTask('inProgress', $event)" *ngFor="let task of inProgress" cdkDrag [task]="task"></app-task>
+      <!-- <app-task (edit)="editTask('inProgress', $event)" *ngFor="let task of inProgress" cdkDrag [task]="task"></app-task> -->
+      <app-task (deleteEvent)="recieveDelete()" *ngFor="let task of inProgress" cdkDrag [task]="task"></app-task>
     </mat-card>
   </div>
 
@@ -50,7 +55,15 @@
       (cdkDropListDropped)="drop($event)"
       class="list">
       <p class="empty-label" *ngIf="done.length === 0">Empty list</p>
-      <app-task (edit)="editTask('done', $event)" *ngFor="let task of done" cdkDrag [task]="task"></app-task>
+      <!-- <app-task (edit)="editTask('done', $event)" *ngFor="let task of done" cdkDrag [task]="task"></app-task> -->
+      <app-task (deleteEvent)="recieveDelete()" *ngFor="let task of done" cdkDrag [task]="task"></app-task>
     </mat-card>
   </div>
 </div>
+
+<!-- getting the project id from the kanban component -->
+<!-- <app-task-dialog [pid]="projID"></app-task-dialog> -->
+
+
+
+
