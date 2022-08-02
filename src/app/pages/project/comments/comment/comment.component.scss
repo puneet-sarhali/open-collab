@@ -1,0 +1,18 @@
+p{
+  margin-top: 0.2rem;
+}
+
+button{
+  border: none;
+  background-color: white;
+  &:hover{
+    color: red;
+  }
+}
+
+.header{
+  color: grey;
+  button{
+    margin-left: 2rem;
+  }
+}

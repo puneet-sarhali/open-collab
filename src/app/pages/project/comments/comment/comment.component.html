@@ -1,0 +1,9 @@
+<div class="wrapper" *ngIf="comment">
+  <div class="header">
+    <span>{{comment.name}}</span>
+    <span style="margin-left: 1rem">{{comment.posted_on | timeSince}} ago</span>
+    <button (click)="onDelete(comment.comment_id)" *ngIf="(isAdmin$ | async) || (comment.author_uid == (uid | async) && (isLoggedIn$ | async))" icon="pi pi-trash" pButton class="p-button-outlined p-button-danger p-button-sm"></button>
+  </div>
+  <p>{{comment.content}}</p>
+  <p-divider></p-divider>
+</div>

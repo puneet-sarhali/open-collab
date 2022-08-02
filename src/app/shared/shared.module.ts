@@ -13,7 +13,19 @@ import {DropdownModule} from 'primeng/dropdown';
 import { ToolbarModule } from "primeng/toolbar";
 import { SelectButtonModule } from 'primeng/selectbutton';
 import {StepsModule} from 'primeng/steps';
+import {ChipModule} from 'primeng/chip';
 import {ChipsModule} from 'primeng/chips';
+import { ToastModule } from "primeng/toast";
+
+import { PanelModule } from 'primeng/panel';
+import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { TableModule } from "primeng/table";
+
 
 import { FormsModule ,ReactiveFormsModule } from "@angular/forms";
 
@@ -26,13 +38,29 @@ import {TimeSincePipe} from "./pipes/time-since.pipe";
 @NgModule({
   declarations: [
     PostComponent,
-    TimeSincePipe
+    TimeSincePipe,
   ],
   imports: [
     CommonModule,
     RouterModule,
     CardModule,
-    ButtonModule
+    ButtonModule,
+    DragDropModule,
+    PanelModule,
+    ToolbarModule,
+    MatCardModule,
+    DragDropModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatToolbarModule,
+    FormsModule,
+    TagModule,
+    ChipModule,
+    DividerModule,
+    DialogModule,
+    ChipsModule,
+    ReactiveFormsModule
   ],
   exports: [
     CardModule,
@@ -51,7 +79,19 @@ import {TimeSincePipe} from "./pipes/time-since.pipe";
     ToolbarModule,
     SelectButtonModule,
     StepsModule,
-    ChipsModule
+    ChipsModule,
+    DragDropModule,
+    PanelModule,
+    ToolbarModule,
+    MatCardModule,
+    DragDropModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatInputModule,
+    MatToolbarModule,
+    ToastModule,
+    TableModule,
+    TimeSincePipe
 
   ]
 })

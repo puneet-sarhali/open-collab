@@ -1,6 +1,12 @@
 form > span {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 form > span:first-child {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+}
+
+.chips{
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
 }

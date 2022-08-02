@@ -13,6 +13,10 @@ CREATE TABLE project(
     downvotes integer,
     userid varchar(255),
     createdat timestamptz,
+    tag1: varchar(50),
+    tag2: varchar(50),
+    tag3: varchar(50),
+    github: varchar(255),
     FOREIGN KEY (userid) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -44,12 +48,23 @@ CREATE TABLE task(
 );
 
 
--- get project data with the user data of the creator.
+-- MOCK DATA
+CREATE TABLE comment(
+    comment_id SERIAL PRIMARY KEY,
+    project_id integer NOT NULL,
+    author_uid varchar(255) NOT NULL,
+    content varchar(4000),
+    posted_on timestamptz,
+    like_count integer,
+    FOREIGN KEY (project_id) REFERENCES project(projectid) ON DELETE CASCADE,
+    FOREIGN KEY (author_uid) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+-- -- get project data with the user data of the creator.
 -- SELECT * FROM project
 -- INNER JOIN users
 -- ON project.userid = users.id;
-
--- MOCK DATA
 
 -- INSERT INTO users (id, name, email) VALUES
 --     ('Ai6hv0sbwJgC8cW5aL8dhbM3YEE2', 'Grace', 'grace@gmail.com'),

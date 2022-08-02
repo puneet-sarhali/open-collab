@@ -1,37 +1,104 @@
 
   <p-card *ngIf="project">
-    <div class="wrapper">
+    <div class="wrapper" *ngIf="project">
       <div class="score">
           <button (click)="onUpvote(project.projectid)"><i [ngClass]="{'up': voteValue === 0 }" class="pi pi-caret-up"></i></button>
           <span>{{ project.score }}</span>
           <button (click)="onDownvote(project.projectid)"><i [ngClass]="{'down': voteValue === 1 }" class="pi pi-caret-down"></i></button>
       </div>
+
+
+
+
+
+
 <!--      this view if called from project list-->
-      <a *ngIf="!fromProject; else projectView" [routerLink]="['/project',project.projectid]">
+      <div *ngIf="!fromProject; else projectView" >
         <div>
           <div class="header">
-            <h3>{{ project.projectname | uppercase}} </h3>
-            <span> &#183; posted by {{project.name}}</span>
+            <button [routerLink]="['/project',project.projectid]" >{{ project.projectname | uppercase}} </button>
+            <button [routerLink]="['/user', project.userid ]"> &#183; <i class="pi pi-user"></i> {{project.name}}</button>
             <span> &#183; {{project.createdat | timeSince}} ago</span>
+            <span>
+              <button *ngIf="project.tag1" (click)="onTagClick(project.tag1)"><p-chip > #{{project.tag1}}</p-chip></button>
+              <button *ngIf="project.tag2" (click)="onTagClick(project.tag2)"><p-chip > #{{project.tag2}}</p-chip></button>
+              <button *ngIf="project.tag3" (click)="onTagClick(project.tag3)"><p-chip > #{{project.tag3}}</p-chip></button>
+            </span>
           </div>
           <div class="body">
             <p>{{ project.description }}</p>
           </div>
         </div>
-      </a>
+      </div>
+
+
+
+
+
+
 <!--      This template if called from individual project-->
-      <ng-template #projectView>
-        <div>
-          <div class="header">
-            <h3>{{ project.projectname | uppercase}} </h3>
-            <span> &#183; Created by {{project.name}}</span>
-            <span> &#183; {{project.createdat | timeSince}} ago</span>
+        <ng-template #projectView class="info">
+          <div class="container" *ngIf="project">
+                <div>
+                  <div class="header">
+                    <h3>{{ project.projectname | uppercase}} </h3>
+                  </div>
+                  <div class="body">
+                    <p>{{ project.description }}</p>
+                  </div>
+                </div>
+                <p-divider layout="vertical"></p-divider>
+                <div class="right-col">
+                  <span>Created by: {{project.name}} </span>
+                  <span>{{project.createdat | timeSince}} ago</span>
+                  <span>
+                      <span>Tags:</span>
+                      <p-chip *ngIf="project.tag1"> #{{project.tag1}}</p-chip>
+                      <p-chip *ngIf="project.tag2"> #{{project.tag2}}</p-chip>
+                      <p-chip *ngIf="project.tag3"> #{{project.tag3}}</p-chip>
+                  </span>
+                  <a pButton *ngIf="project.github" href="{{project.github}}" target="_blank" icon="pi pi-github" label="Github" class="p-button-secondary"></a>
+                  <div *ngIf="(isLoggedIn$ | async) && (project.userid == currentUid || (isAdmin$ | async))">
+                    <button  (click)="onEdit()" pButton class="p-button-warning p-button-sm p-button-outlined" label="edit" icon="pi pi-user-edit"></button>
+                    <button  class="p-button-danger p-button-sm p-button-outlined" icon="pi pi-trash" label="delete" (click)="onDelete(project.projectid)" pButton></button>
+                  </div>
+
+                </div>
           </div>
-          <div class="body">
-            <p>{{ project.description }}</p>
+        </ng-template>
+    </div>
+
+
+
+
+
+
+
+<!--    form for editing-->
+    <div *ngIf="fromProject" [ngClass]="{'hide': hideEdit }" >
+      <p-divider  ></p-divider>
+      <div class="edit-form">
+        <form [formGroup]="updateProjectForm">
+          <span class="p-float-label" >
+              <input id="projectName" type="text" formControlName="projectName" pInputText>
+              <label for="projectName">Project Name</label>
+          </span>
+          <span  class="p-float-label">
+              <textarea pInputText [rows]="10" [cols]="50"  id="projectDescription" type="text" formControlName="projectDescription" ></textarea>
+              <label for="projectDescription">Project Description</label>
+          </span>
+          <div class="chips">
+            <label for="chips">Project Tags (max 3)</label>
+            <p-chips id="chips" [allowDuplicate]="false" [max]="3" [placeholder]="'eg: Angular React Typescript etc'" formControlName="tags"></p-chips>
           </div>
-        </div>
-      </ng-template>
+          <span class="p-float-label">
+                <input id="github" type="text" formControlName="github"  pInputText>
+                <label for="github">Github Link</label>
+          </span>
+          <button (click)="onCancel()" label="Cancel" pButton class="p-button-sm p-button-secondary"></button>
+          <button (click)="onUpdate()" label="Update" pButton class="p-button-sm" style="margin-left: 1rem"></button>
+        </form>
+      </div>
     </div>
   </p-card>
 

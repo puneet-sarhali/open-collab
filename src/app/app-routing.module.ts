@@ -4,8 +4,10 @@ import {PostListComponent} from "./pages/home/post-list/post-list.component";
 import {PageNotFoundComponent} from "./core/components/page-not-found/page-not-found.component";
 import {CreatePostComponent} from "./pages/home/create-post/create-post.component";
 
+
+
 const routes: Routes = [
-  { path: 'posts/create-post',  component: CreatePostComponent, pathMatch: 'full' },
+  { path: 'user/:id', loadChildren: ()=> import('./pages/profile/profile.module').then(m=> m.ProfileModule)},
   { path: 'project/:id', loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectModule)},
   { path: 'posts',  component: PostListComponent, pathMatch: 'full' },
   { path: '', redirectTo:'/posts', pathMatch: 'full' },
@@ -13,7 +15,7 @@ const routes: Routes = [
   ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

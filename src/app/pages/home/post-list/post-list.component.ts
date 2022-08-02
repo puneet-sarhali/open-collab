@@ -39,6 +39,11 @@ export class PostListComponent implements OnInit {
     this.getData(this.sortValue);
   }
 
+  tagClicked(value: string){
+    this.searchValue = value;
+    console.log(this.searchValue)
+  }
+
   getMyProjects(){
     this.auth.userInfo().pipe(
       switchMap((user) => this.ps.getMyProjects(user?.uid!))

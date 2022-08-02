@@ -14,6 +14,9 @@ export class ProfileComponent implements OnInit {
   }
 
   onSignout(){
-    this.auth.signout();
+    this.auth.signout().then((res) => {
+      console.log(res);
+      localStorage.removeItem("authToken");
+    })
   }
 }

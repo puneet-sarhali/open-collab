@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectHeaderComponent } from './project-header/project-header.component';
-import { KanbanComponent } from './kanban/kanban.component';
 import { TaskDialogComponent } from "./kanban/task-dialog/task-dialog.component";
 import { TaskComponent } from "./kanban/task/task.component";
 
@@ -21,6 +20,10 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 
+import { KanbanComponent } from "./kanban/kanban.component";
+import { CommentsComponent } from './comments/comments.component';
+import { CommentComponent } from './comments/comment/comment.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { DropdownModule } from 'primeng/dropdown';
     KanbanComponent,
     ProjectComponent,
     TaskDialogComponent,
-    TaskComponent
+    TaskComponent,
+    CommentsComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
@@ -45,8 +50,7 @@ import { DropdownModule } from 'primeng/dropdown';
     MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
-    DropdownModule
-
+    DropdownModule,
   ]
 })
 export class ProjectModule { }

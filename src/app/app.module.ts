@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from "@angular/common/http";
 import { SharedModule } from "./shared/shared.module";
 import { CoreModule } from "./core/core.module";
 import { AppRoutingModule } from './app-routing.module';
@@ -17,12 +16,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     AppRoutingModule,
     SharedModule,
     CoreModule,
     HomeModule,
-
     ReactiveFormsModule,
   ],
   providers: [],

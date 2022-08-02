@@ -1,15 +1,16 @@
-const express = require("express")
+const express = require("express");
+const { checkAuth } = require("../auth");
 const router = express.Router()
 const pool = require("../db");
 
 
 //create a project
-router.post("/", async (req, res) => {
+router.post("/",checkAuth, async (req, res) => {
     try {
-        const { projectname, description, upvotes, downvotes, score, userid, createdat } = req.body;
+        const { projectname, description, upvotes, downvotes, score, userid, createdat, tag1, tag2, tag3, github } = req.body;
         const newRow = await
-        pool.query("INSERT INTO project (projectName, description, upvotes, downvotes, score, userid, createdat) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
-                             [projectname, description, upvotes, downvotes, score, userid, createdat]);
+        pool.query("INSERT INTO project (projectName, description, upvotes, downvotes, score, userid, createdat, tag1, tag2, tag3, github) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+                             [projectname, description, upvotes, downvotes, score, userid, createdat, tag1, tag2, tag3, github]);
         res.json(newRow.rows[0]);
     } catch (err) {
         console.error(err.message);
@@ -69,6 +70,19 @@ router.put("/:id", async (req, res) => {
     }
 })
 
+//patch project info
+router.patch("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { projectname, description, tag1, tag2, tag3, github } = req.body;
+        const newRow = await pool.query
+        ("UPDATE project SET projectName = $1, description = $2, tag1 = $3, tag2 = $4, tag3 = $5, github = $6 WHERE projectid = $7 RETURNING *",
+                             [projectname, description, tag1, tag2, tag3, github, id]);
+        res.json(newRow.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
 
 //delete a project
 router.delete("/:id", async (req, res) => {
