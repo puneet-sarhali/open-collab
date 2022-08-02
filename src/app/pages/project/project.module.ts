@@ -9,6 +9,8 @@ import { TaskComponent } from "./kanban/task/task.component";
 import { SharedModule } from "../../shared/shared.module";
 import { ProjectComponent } from './project/project.component';
 import {KanbanComponent} from "./kanban/kanban.component";
+import { CommentsComponent } from './comments/comments.component';
+import { CommentComponent } from './comments/comment/comment.component';
 
 
 
@@ -18,7 +20,9 @@ import {KanbanComponent} from "./kanban/kanban.component";
       ProjectComponent,
       TaskDialogComponent,
       TaskComponent,
-      KanbanComponent
+      KanbanComponent,
+      CommentsComponent,
+      CommentComponent
     ],
     exports: [
 

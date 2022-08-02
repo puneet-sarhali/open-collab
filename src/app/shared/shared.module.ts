@@ -90,7 +90,8 @@ import {TimeSincePipe} from "./pipes/time-since.pipe";
     MatInputModule,
     MatToolbarModule,
     ToastModule,
-    TableModule
+    TableModule,
+    TimeSincePipe
 
   ]
 })

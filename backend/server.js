@@ -9,7 +9,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-
+// admin.auth().setCustomUserClaims("ZtYT7z1bSfMzTlOPP29mVj9BvQs2", {admin: true}).then((res) => console.log("success")).catch(err => console.log("failed"));
 
 app = express();
 app.use(express.json())
@@ -21,6 +21,11 @@ app.use(('/projects'), projectRouter);
 
 const usersRouter = require('./routes/users')
 app.use(('/users'), usersRouter)
+
+const commentRouter = require('./routes/comment');
+app.use(("/projects/comments"), commentRouter);
+
+
 
 
 

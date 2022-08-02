@@ -58,9 +58,9 @@
                       <p-chip *ngIf="project.tag3"> #{{project.tag3}}</p-chip>
                   </span>
                   <a pButton *ngIf="project.github" href="{{project.github}}" target="_blank" icon="pi pi-github" label="Github" class="p-button-secondary"></a>
-                  <div>
-                    <button *ngIf="project.userid == currentUid" (click)="onEdit()" pButton class="p-button-warning p-button-sm" label="edit" icon="pi pi-user-edit"></button>
-                    <button *ngIf="project.userid == currentUid" class="p-button-danger p-button-sm" icon="pi pi-trash" label="delete" (click)="onDelete(project.projectid)" pButton></button>
+                  <div *ngIf="(isLoggedIn$ | async) && (project.userid == currentUid || (isAdmin$ | async))">
+                    <button  (click)="onEdit()" pButton class="p-button-warning p-button-sm p-button-outlined" label="edit" icon="pi pi-user-edit"></button>
+                    <button  class="p-button-danger p-button-sm p-button-outlined" icon="pi pi-trash" label="delete" (click)="onDelete(project.projectid)" pButton></button>
                   </div>
 
                 </div>

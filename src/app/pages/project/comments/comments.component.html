@@ -1,0 +1,15 @@
+
+<div style="margin-bottom: 3rem">
+  <h2 style="text-align: center">Comments</h2>
+  <form (ngSubmit)="onSubmit()">
+    <span class="p-float-label">
+        <textarea pInputTextarea [(ngModel)]="formContent" name="content" id="float-input" rows="2" cols="82"  [autoResize]="true"></textarea>
+        <label for="float-input">Add a comment...</label>
+    </span>
+    <button icon="pi pi-reply" pButton class="p-button-outlined p-button-sm"></button>
+  </form>
+</div>
+
+<div *ngIf="comments">
+  <app-comment (deleteComment)="onDelete($event)" *ngFor="let comment of comments" [comment]="comment"></app-comment>
+</div>

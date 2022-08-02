@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { Project } from 'src/app/shared/models/project';
 import {Vote} from "../models/vote";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {ProjectService} from "../../core/http/project.service";
 import {UserService} from "../../core/http/user.service";
 import {AuthService} from "../../core/auth/auth.service";
@@ -28,6 +28,8 @@ export class PostComponent implements OnInit{
   displayEditDialog = false;
   currentUid!: string | undefined;
   hideEdit = true;
+  isAdmin$!: BehaviorSubject<boolean>;
+  isLoggedIn$!: BehaviorSubject<boolean>;
 
   updateProjectForm = this.fb.group({
     projectName: [''],
@@ -43,7 +45,11 @@ export class PostComponent implements OnInit{
               private router: Router,
               private toastService: ToastService,
               private fb: FormBuilder) {
+
       this.auth.userInfo().subscribe((info) => this.currentUid = info?.uid)
+      this.isAdmin$ = this.auth.isAdmin$;
+      this.isLoggedIn$ = this.auth.isLoggedIn$;
+
   }
 
   ngOnInit(): void {

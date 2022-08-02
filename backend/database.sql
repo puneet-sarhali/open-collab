@@ -32,10 +32,22 @@ CREATE TABLE vote(
 );
 
 
--- get project data with the user data of the creator.
-SELECT * FROM project
-INNER JOIN users
-ON project.userid = users.id;
+CREATE TABLE comment(
+    comment_id SERIAL PRIMARY KEY,
+    project_id integer,
+    author_uid varchar(255),
+    content varchar(4000),
+    posted_on timestamptz,
+    like_count integer,
+    FOREIGN KEY (project_id) REFERENCES project(projectid) ON DELETE CASCADE,
+    FOREIGN KEY (author_uid) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
+-- -- get project data with the user data of the creator.
+-- SELECT * FROM project
+-- INNER JOIN users
+-- ON project.userid = users.id;
 
 
 

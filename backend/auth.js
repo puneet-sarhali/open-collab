@@ -4,7 +4,7 @@ module.exports.checkAuth = function checkAuth(req, res, next){
     const token = temp[1];
     if(token){
         admin.auth().verifyIdToken(token)
-        .then(() => {
+        .then((result) => {
             next()
         }).catch(() => {
             res.status(403).send('Unauthorized');
@@ -13,3 +13,4 @@ module.exports.checkAuth = function checkAuth(req, res, next){
         res.status(403).send('Unauthorized');
     }
 }
+

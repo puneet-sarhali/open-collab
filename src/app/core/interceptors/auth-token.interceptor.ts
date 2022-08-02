@@ -3,9 +3,9 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpResponse
 } from '@angular/common/http';
-import {catchError, Observable, throwError} from 'rxjs';
+import {catchError, Observable, throwError, tap} from 'rxjs';
 import {AuthService} from "../auth/auth.service";
 import {ToastService} from "../services/toast.service";
 
