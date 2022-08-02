@@ -1,4 +1,22 @@
-<mat-card *ngIf="task" (dblclick)="edit.emit(task)">
+<mat-card *ngIf="task" >
         <h2>{{ task.title }}</h2>
-    <p> {{ task.description }}</p>
+    <p> {{ task.content }}</p>
+
+    
+    <p-dropdown 
+        [options]="users" 
+        [filter]="true"
+        [(ngModel)]="assignedUser"
+        optionLabel="name" 
+        placeholder="change assignee"
+        (onChange)="updateTask(task)">
+    </p-dropdown>
+
+    <p>Assigned to: {{ task.assignedto }}</p>
+    <p>Selected user: {{ assignedUser?.name }}</p>
+
+    <button mat-flat-button color="warn" (click)="deleteTask(task.taskid)">Delete</button>
 </mat-card>
+
+
+<!-- [(ngModel)]="assignedUser"  -->

@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
       console.log(`${res.user.email} : result of sign in user`)
       res.user.getIdToken().then((res) => localStorage.setItem("authToken", res));
     }).catch((err)=>{
-      this.toast.genericError("Sign In failed.");
+      this.toast.genericError("Error: Sign in failed.");
     })
     console.log("submitted");
   }

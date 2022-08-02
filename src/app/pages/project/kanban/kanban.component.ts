@@ -1,14 +1,12 @@
 import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
-
-// import { TaskService } from '../service/task.service';
-import  { Task } from "../project/task";
-import { DialogModule } from 'primeng/dialog';
+import { Task } from '../../../shared/models/task'
 import { TaskDialogComponent, TaskDialogResult } from './task-dialog/task-dialog.component';
-
 import { MatDialog } from '@angular/material/dialog';
 
+import { KanbanService } from "../../../core/http/kanban.service";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-kanban',
@@ -16,51 +14,56 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./kanban.component.scss'],
 })
 
-export class KanbanComponent {
+export class KanbanComponent implements OnInit {
 
-  todo: Task[] = [
-    {
-      id: "5",
-      title: 'Do Something',
-      description: 'This is the description'
-    },
-    {
-      id: "6",
-      title: 'Create a Task',
-      description: 'yay!'
-    }
-  ];
+  tasks: Task[] = [];
 
-  inProgress: Task[] = [
-  ];
+  todo: Task[] = [];
 
-  done: Task[] = [
-  ];
+  inProgress: Task[] = [];
 
-  constructor(private dialog: MatDialog) {}
+  done: Task[] = [];
 
-  editTask(list: 'done' | 'todo' | 'inProgress', task: Task): void {
-    const dialogRef = this.dialog.open(TaskDialogComponent, {
-      width: '40%',
-      data: {
-        task,
-        enableDelete: true,
-      },
-    });
-    dialogRef.afterClosed().subscribe((result: TaskDialogResult|undefined) => {
-      if (!result) {
-        return;
-      }
-      const dataList = this[list];
-      const taskIndex = dataList.indexOf(task);
-      if (result.delete) {
-        dataList.splice(taskIndex, 1);
-      } else {
-        dataList[taskIndex] = task;
-      }
-    });
+  projID: string | null | undefined;
+  
+  constructor(
+    private dialog: MatDialog,
+    private kanbanService: KanbanService,
+    private route: ActivatedRoute,) { }
+  ngOnInit() {
+
+    this.fetchData();
   }
 
+  fetchData(): void {
+    console.log("got here");
+    this.kanbanService
+      .getAllTasks(
+    ).subscribe((task) => {
+      console.log(task, "ALL TASK");
+      this.projID = this.route.snapshot.paramMap.get('id');
+
+      this.tasks = task;
+
+      // filter to only have the tasks from THIS PROJECT
+      this.tasks = this.tasks.filter(item =>
+        parseInt(item.projectid) === parseInt(this.projID!)
+      );
+
+      // filter each of the 3 categories
+      this.todo = this.tasks.filter(item =>
+        item.category === 0
+      );
+
+      this.inProgress = this.tasks.filter(item =>
+        item.category === 1
+      );
+
+      this.done = this.tasks.filter(item =>
+        item.category === 2
+      );
+    });
+  }
 
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
@@ -75,13 +78,35 @@ export class KanbanComponent {
       event.previousIndex,
       event.currentIndex
     );
+
+    // saving the new category to db
+    let currCategory = 0;
+
+    for (let t of event.container.data) {
+      if (event.container.id === "todo") {
+        currCategory = 0;
+      } else if (event.container.id === "inProgress") { 
+        currCategory = 1;
+      } else { 
+        currCategory = 2;
+      }
+
+      if (t.category !== currCategory) {
+        // updating the moved task
+        this.kanbanService.updateTask({ category: currCategory, assignedto: t.assignedto }, t.taskid).subscribe(res => {
+          // console.log("res updated =>", res);
+        });
+      }
+    }
   }
 
   displayDialog: boolean = false;
 
-  newTask(): void {
-    // this.displayDialog = true;
+  recieveDelete(): void {
+    this.fetchData();
+  }
 
+  newTask(): void {
     // open the dialogue window
     const dialogRef = this.dialog.open(TaskDialogComponent, {
       width: '50%',
@@ -90,18 +115,12 @@ export class KanbanComponent {
       },
     });
 
-    // on close of dialogue, save the info onto todo
-    dialogRef
-      .afterClosed()
-      .subscribe((result: TaskDialogResult|undefined) => {
-        if (!result) {
-          return;
-        }
-        this.todo.push(result.task);
-      });
-    }
- }
+    // update the displayed tasks right after close 
+    dialogRef.afterClosed().subscribe(result => {
+      this.todo.push(result);
+    })
+  }
+}
 
-// assign tasks
-// in the todo users can select an item and they can request to contribute to it
-// if time: manager can assign people to tasks
+// run with npm start for backend
+// run front with ng serve
