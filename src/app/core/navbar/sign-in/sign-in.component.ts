@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validator, Validators } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 import {ToastService} from "../../services/toast.service";
 
@@ -13,8 +13,8 @@ export class SignInComponent implements OnInit {
   display: boolean = false;
 
   signinForm = this.fb.group({
-    email: [''],
-    password: [''],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
   });
 
   constructor(private fb: FormBuilder, private auth: AuthService, private toast: ToastService) { }
@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
       console.log(`${res.user.email} : result of sign in user`)
       res.user.getIdToken().then((res) => localStorage.setItem("authToken", res));
     }).catch((err)=>{
-      this.toast.genericError();
+      this.toast.genericError("Sign In failed.");
     })
     console.log("submitted");
   }

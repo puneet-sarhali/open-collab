@@ -1,9 +1,8 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, Validator, Validators } from "@angular/forms";
 import {ProjectService} from "../../../core/http/project.service";
 import {Project} from "../../../shared/models/project";
 import {AuthService} from "../../../core/auth/auth.service";
-import {MenuItem} from 'primeng/api';
 import {ToastService} from "../../../core/services/toast.service";
 
 @Component({
@@ -16,10 +15,10 @@ export class CreatePostComponent implements OnInit {
   @Output() newProject: EventEmitter<Project> = new EventEmitter<Project>()
 
   createPostForm = this.fb.group({
-    projectName: [''],
-    projectDescription: [''],
-    tags: [''],
-    github: ['']
+    projectName: ['', Validators.required],
+    projectDescription: ['', Validators.required],
+    tags: ['', Validators.required],
+    github: ['', Validators.required]
   });
 
   constructor(private fb: FormBuilder, private ps: ProjectService, private auth: AuthService, private toastService: ToastService) { }
