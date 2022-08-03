@@ -1,8 +1,9 @@
 
-
-<mat-toolbar>
-    <button class="p-button-success" (click)="newTask()" pButton icon="pi pi-plus"></button>
-</mat-toolbar>
+<div *ngIf="(isAdmin$ | async) || ((project | async)?.userid == (uid | async)) && (isLoggedIn$ | async)">
+  <mat-toolbar>
+      <button class="p-button-success" (click)="newTask()" pButton icon="pi pi-plus"></button>
+  </mat-toolbar>
+</div>
 
 <!-- CATEGORIEs -->
 

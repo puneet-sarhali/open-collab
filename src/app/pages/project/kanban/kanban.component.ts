@@ -7,6 +7,11 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { KanbanService } from "../../../core/http/kanban.service";
 import { ActivatedRoute } from '@angular/router';
+import {BehaviorSubject, Observable} from "rxjs";
+import {Project} from "../../../shared/models/project";
+import {switchMap} from "rxjs/operators";
+import {ProjectService} from "../../../core/http/project.service";
+import {AuthService} from "../../../core/auth/auth.service";
 
 @Component({
   selector: 'app-kanban',
@@ -26,10 +31,29 @@ export class KanbanComponent implements OnInit {
 
   projID: string | null | undefined;
 
+  isAdmin$!: BehaviorSubject<boolean>;
+  uid!: BehaviorSubject<string>;
+  isLoggedIn$!: BehaviorSubject<boolean>;
+  project!: Observable<Project>;
+
   constructor(
     private dialog: MatDialog,
     private kanbanService: KanbanService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute,
+    private projectService: ProjectService,
+    private auth: AuthService) {
+
+    this.isAdmin$ = this.auth.isAdmin$;
+    this.uid = this.auth.userId$;
+    this.isLoggedIn$ = this.auth.isLoggedIn$;
+
+    this.project = this.route.paramMap.pipe(
+      switchMap((param) => {
+        return this.projectService.getProject(parseInt(param.get('id')!))
+      })
+    )
+
+  }
   ngOnInit() {
 
     this.fetchData();

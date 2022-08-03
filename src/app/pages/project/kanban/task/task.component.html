@@ -4,7 +4,7 @@
 
 
 
-  <div *ngIf="(isAdmin$ | async) || ((project | async)?.userid == (uid | async)) && (isLoggedIn$ | async)">
+  <div *ngIf="(isAdmin$ | async) || ((project | async)?.userid == (uid | async)) && (isLoggedIn$ | async); else elseBlock">
     <p-dropdown
       [options]="users"
       [filter]="true"
@@ -14,8 +14,10 @@
       (onChange)="updateTask(task)">
     </p-dropdown>
     <button pButton icon="pi pi-trash" class="p-button-sm p-button-outlined p-button-danger" (click)="deleteTask(task.taskid)"></button>
-  </div>
-  <p class="assigned">Assigned To: {{getPlaceholder()}}</p>
+  </div >
+  <ng-template #elseBlock>
+    <p class="assigned" >Assigned To: {{getPlaceholder()}}</p>
+  </ng-template>
   <p-divider></p-divider>
 </div>
 
