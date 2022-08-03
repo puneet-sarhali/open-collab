@@ -56,7 +56,7 @@ export class PostComponent implements OnInit{
     this.isLoggedIn$.subscribe(res =>{
       if(res){
         this.currentUserVotes.subscribe((votes) => {
-          votes.forEach((vote) => {
+          setTimeout(()=>votes.forEach((vote) => {
             if (vote.projectid === this.project.projectid) {
               if (vote.votevalue) {
                 this.voteValue = VoteVal.upVote;
@@ -64,7 +64,8 @@ export class PostComponent implements OnInit{
                 this.voteValue = VoteVal.downVote;
               }
             }
-          })
+          }), 200)
+
         })
       }else{
         this.voteValue = VoteVal.noVote;

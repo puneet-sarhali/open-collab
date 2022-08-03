@@ -25,7 +25,7 @@ export class KanbanComponent implements OnInit {
   done: Task[] = [];
 
   projID: string | null | undefined;
-  
+
   constructor(
     private dialog: MatDialog,
     private kanbanService: KanbanService,
@@ -33,10 +33,12 @@ export class KanbanComponent implements OnInit {
   ngOnInit() {
 
     this.fetchData();
+
   }
 
+
+
   fetchData(): void {
-    console.log("got here");
     this.kanbanService
       .getAllTasks(
     ).subscribe((task) => {
@@ -85,9 +87,9 @@ export class KanbanComponent implements OnInit {
     for (let t of event.container.data) {
       if (event.container.id === "todo") {
         currCategory = 0;
-      } else if (event.container.id === "inProgress") { 
+      } else if (event.container.id === "inProgress") {
         currCategory = 1;
-      } else { 
+      } else {
         currCategory = 2;
       }
 
@@ -102,6 +104,7 @@ export class KanbanComponent implements OnInit {
 
   displayDialog: boolean = false;
 
+
   recieveDelete(): void {
     this.fetchData();
   }
@@ -115,7 +118,7 @@ export class KanbanComponent implements OnInit {
       },
     });
 
-    // update the displayed tasks right after close 
+    // update the displayed tasks right after close
     dialogRef.afterClosed().subscribe(result => {
       this.todo.push(result);
     })

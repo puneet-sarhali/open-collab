@@ -1,22 +1,23 @@
-<mat-card *ngIf="task" >
-        <h2>{{ task.title }}</h2>
+<div *ngIf="task" >
+    <h2 style="color: grey">{{ task.title }}</h2>
     <p> {{ task.content }}</p>
 
-    
-    <p-dropdown 
-        [options]="users" 
-        [filter]="true"
-        [(ngModel)]="assignedUser"
-        optionLabel="name" 
-        placeholder="change assignee"
-        (onChange)="updateTask(task)">
+
+
+  <div *ngIf="(isAdmin$ | async) || ((project | async)?.userid == (uid | async)) && (isLoggedIn$ | async)">
+    <p-dropdown
+      [options]="users"
+      [filter]="true"
+      [(ngModel)]="assignedUser"
+      optionLabel="name"
+      placeholder="{{ getPlaceholder() }}"
+      (onChange)="updateTask(task)">
     </p-dropdown>
-
-    <p>Assigned to: {{ task.assignedto }}</p>
-    <p>Selected user: {{ assignedUser?.name }}</p>
-
-    <button mat-flat-button color="warn" (click)="deleteTask(task.taskid)">Delete</button>
-</mat-card>
+    <button pButton icon="pi pi-trash" class="p-button-sm p-button-outlined p-button-danger" (click)="deleteTask(task.taskid)"></button>
+  </div>
+  <p class="assigned">Assigned To: {{getPlaceholder()}}</p>
+  <p-divider></p-divider>
+</div>
 
 
 <!-- [(ngModel)]="assignedUser"  -->

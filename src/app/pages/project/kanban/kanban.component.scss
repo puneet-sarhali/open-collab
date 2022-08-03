@@ -27,3 +27,24 @@ h1 {
   margin: 1rem;
 }
 
+.in-progress{
+  padding: 1rem;
+  border:  0.2rem solid #f6f684;
+  box-shadow: 10px 5px 5px #fafacd;
+}
+
+.done{
+  padding: 1rem;
+  border:  0.2rem solid #bbfcbb;
+  box-shadow: 10px 5px 5px #d2fcd2;
+}
+
+.todo{
+  padding: 1rem;
+  border:  0.2rem solid #f6aaaa;
+  box-shadow: 10px 5px 5px #ffd9d9;
+}
+
+h2{
+  margin-left: 1rem;
+}

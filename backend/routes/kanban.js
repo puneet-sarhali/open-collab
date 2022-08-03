@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
   try {
     const allTasks = await pool.query(
       // `SELECT * FROM task INNER JOIN users ON task.assignedto = users.id`
-      "SELECT * FROM task"
+      "SELECT * FROM task ORDER BY task.taskid"
     );
 
     res.json(allTasks.rows);

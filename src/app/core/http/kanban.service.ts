@@ -7,8 +7,8 @@ import { Task } from "../../shared/models/task";
 })
 export class KanbanService{
 
-  // private url = "http://localhost:4999/tasks"
-  private url = "http://34.130.167.193/projects"
+  //private url = "http://localhost:4999/tasks"
+  private url = "http://34.130.167.193/tasks"
   constructor(private http: HttpClient) { }
 
   //
