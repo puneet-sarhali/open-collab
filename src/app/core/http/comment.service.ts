@@ -7,7 +7,7 @@ import {Comment} from "../../shared/models/comment";
 })
 export class CommentService {
 
-  private baseUrl = "http://localhost:4999/projects/comments"
+  private baseUrl = "http://34.130.167.193/projects/comments"
   constructor(private http: HttpClient) { }
 
   getComments(projectId: number){

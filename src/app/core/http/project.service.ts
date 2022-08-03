@@ -16,8 +16,8 @@ interface patchedProject{
   providedIn: 'root'
 })
 export class ProjectService {
-  private url = "http://localhost:4999/projects"
-  // private url = "http://34.130.182.2/projects"
+  //private url = "http://localhost:4999/projects"
+  private url = "http://34.130.167.193/projects"
   constructor(private http: HttpClient) { }
 
   //

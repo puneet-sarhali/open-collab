@@ -7,8 +7,8 @@ import { Task } from "../../shared/models/task";
 })
 export class KanbanService{
 
-  private url = "http://localhost:4999/tasks"
-  //private url = "http://34.130.182.2/projects"
+  // private url = "http://localhost:4999/tasks"
+  private url = "http://34.130.167.193/projects"
   constructor(private http: HttpClient) { }
 
   //
@@ -18,7 +18,7 @@ export class KanbanService{
 
   createTask(task: Task) {
     return this.http.post<Task[]>(this.url, task);
-  } 
+  }
 
   getTask(taskid: number){
     return this.http.get<Task>(this.url + `/${taskid}`);
